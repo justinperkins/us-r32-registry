@@ -1,0 +1,383 @@
+/*
+
+CSS for USR32Registry.org
+
+*/
+
+*{ margin:0; padding:0; }
+
+body{
+	font:62.5% Helvetica, "Lucida Sans", "Lucida Grande", "Trebuchet MS", Arial, sans-serif;
+	background:#fff;
+}
+
+h1, h2, h3, h4, h5{
+	font-weight:normal;
+}
+h1{
+	font-size:2em;
+}
+.highlight{
+  background:#FFFFB3;
+}
+.clearfix-left{
+  clear:left;
+}
+.clearfix-right{
+  clear:right;
+}
+.clearfix-both{
+  clear:both;
+}
+input, select, textarea{
+	border:1px solid #666;
+	color:#444;
+	padding:.2em 1px;
+	font-size:1.3em;
+	font-family:Helvetica, "Lucida Sans", "Lucida Grande", "Trebuchet MS", Arial, sans-serif;
+}
+select{
+}
+input.btn, input.editor_ok_button{
+  padding:.1em;
+}
+a{
+  color:#506cb3;
+}
+a:link{
+  color:#506cb3;
+}
+a:visited{
+  color:#2f55a7;
+}
+a:hover{
+  color:#272a71;
+}
+a:active{
+  color:#141439;
+}
+
+/* header styles
+********************************************************************************************/
+#header{
+  border-bottom:5px solid #ccc;
+  float:left;
+  padding:10px 0;
+  background:#396da9 url(../images/header_bg.png) repeat-x bottom left;
+  color:#fff;
+  width:100%;
+}
+#header h1{
+  margin:0;
+}
+#header h1 a{
+  display:block;
+  float:left;
+  width:205px;
+  height:28px;
+  text-indent:-9999px;
+  background:transparent url(../images/site_name.png) no-repeat top left;
+  margin:40px 0 0 20px;
+}
+#header h1 a:hover{ background-position:bottom left; }
+#header h2{
+  float:left;
+  clear:left;
+  width:233px;
+  height:17px;
+  text-indent:-9999px;
+  background:transparent url(../images/tagline.png) no-repeat top left;
+  margin:5px 0 0 73px;
+}
+#header img{
+  display:block;
+  float:right;
+  border:1px solid #0e55a8;
+  padding:3px;
+  background:#587ba4;
+  margin:-70px 10px 0 0;
+}
+body.blog #header img{
+  margin-top:-90px;
+}
+#header h3{
+  float:left;
+  clear:left;
+  font-size:1.8em;
+  margin:30px 0 0 20px;
+  color:#ccc;
+}
+
+/* content styles
+********************************************************************************************/
+#content{
+  clear:both;
+  background:#ebebeb;
+  padding:10px;
+  font-size:1.2em;
+}
+#navigation{
+  list-style:none;
+  float:left;
+  margin:-10px 0 10px;
+}
+#navigation li{
+  display:inline;
+}
+#navigation li a{
+  text-decoration:none;
+  color:#000;
+  display:block;
+  background:#ccc;
+  float:left;
+  padding:5px 5px 3px;
+  margin:0 10px 5px 0;
+}
+#navigation li a em{
+  color:red;
+  font-size:10px;
+  text-align:center;
+  font-style:normal;
+}
+#navigation li a:hover{
+  padding-top:10px;
+  margin-bottom:0;
+  color:#396da9;
+}
+#content h3.system_message{
+  border:1px solid #fff;
+  background:#ddd;
+  padding:5px;
+  margin:0 0 10px;
+}
+#content h3.notice{
+  font-size:1.8em;
+  margin:0 0 10px;
+}
+#content h2{
+  margin:0 0 10px;
+}
+#content p{
+  margin:5px 0;
+}
+#content fieldset{
+  padding:10px;
+  margin:5px 0;
+}
+#content fieldset legend{
+  font-size:1.3em;
+}
+#content form p{
+  clear:left;
+  padding:5px 0 0;
+}
+#content form p label, #content form p strong{
+  float:left;
+  width:13em;
+  padding:5px 0 0;
+  font-weight:bold;
+}
+#content form p.multi label{
+  float:none;
+  width:auto;
+  padding:0 10px 0 0;
+  font-weight:normal;
+}
+#content form p em.meta{
+  display:block;
+  padding:3px 0 0 13em;
+}
+#content form p strong, #content form p.check label{
+  padding-top:1px;
+}
+#content form p input.text{
+  width:150px;
+}
+#content form p select{
+  width:154px;
+}
+#content form p textarea{
+  width:250px;
+  height:100px;
+}
+#content form p span.fieldWithErrors input, #content form p span.fieldWithErrors select, #content form p span.fieldWithErrors textarea{
+  border:1px solid red;
+}
+#content form p em.highlight{
+}
+#content form p.btn{
+  padding-left:13em;
+}
+#content div.r32{
+  border-bottom:1px solid #666;
+}
+#content #r32_form #r32_photo, #content div.r32 img.r32_photo{
+  display:block;
+  padding:3px;
+  border:1px solid #666;
+  background:#fff;
+  float:right;
+}
+#content div.r32 img.r32_photo{
+  margin:0 0 10px;
+  max-width:500px;
+}
+body.blog #content div.r32, #content div.list_meta{
+  border:0;
+  float:right;
+  width:300px;
+  border:1px solid #aaa;
+  background:#fff;
+  padding:5px;
+  margin:0 0 10px 10px;
+}
+#content div.list_meta{
+  width:350px;
+  text-align:right;
+}
+#content table.r32s{
+  float:left;
+  width:65%;
+}
+#content table.r32s thead{
+  background:#fff;
+}
+#content table.r32s thead th{
+  text-align:right;
+  padding:5px 5px;
+}
+#content table.r32s tr{
+}
+#content table.r32s tr td{
+  padding:3px 5px;
+  text-align:right;
+}
+#content table.r32s tr.r32_1{
+  background:#ddd;
+}
+#content table.r32s tr.preordered, #content p.legend{
+  padding:10px 0 0;
+}
+#content table.r32s tr.preordered, #content p.legend span.preordered{
+  background:#75A0D1;
+}
+#content table.r32s tr.for_sale, #content p.legend span.for_sale{
+  background:#FFCCCC;
+}
+#content h3.blog_link{
+  margin:5px 0;
+}
+#content div.entry{
+  padding:0 0 10px;
+  margin:0 0 10px;
+  border-bottom:1px solid #aaa;
+}
+#content div.entry div.content img{
+  border:1px solid #666;
+  background:#fff;
+  padding:2px;
+}
+#content div.entry h2.title{
+  padding:0;
+}
+#content div.entry h2.title form{
+  display:inline;
+}
+#content div.entry h2.title form input{
+  font-size:.9em;
+  background:#fff;
+}
+#content div.entry h2.title a.delete{
+}
+#content div.entry h2.title a.delete img{
+  border:0;
+  position:relative;
+  top:2px;
+}
+#content div.entry h2.title a.permalink{
+  font-size:10px;
+}
+#content div.entry div.content p{
+  margin:0;
+}
+#content div.entry form textarea{
+  background:#fff;
+  display:block;
+  margin:0 0 5px;
+}
+body.blog #content p.help{
+  font-size:.95em;
+}
+div.pagination{
+  width:65%;
+  display:block;
+  text-align:center;
+  font-size:1.6em;
+  padding:20px 0 0;
+}
+div.pagination span, div.pagination a{
+  display:block;
+  float:left;
+  padding:3px;
+  border:1px solid #ccc;
+  background:#fff;
+  margin:0 2px 0 0;
+  text-decoration:none;
+}
+div.pagination span.disabled{}
+div.pagination span.current{}
+div.pagination a{}
+div.pagination a:hover{
+  border-color:#999;
+  background:#ddd;
+}
+
+/* footer styles
+********************************************************************************************/
+#footer p.meta{
+  margin:0;
+  font-size:1.1em;
+  border-top:1px solid #ccc;
+  padding:8px 10px;
+}
+
+/* for the map
+********************************************************************************************/
+#map{
+  width:800px;
+  height:400px;
+  padding:3px;
+  border:1px solid #000;
+}
+#map p.overlay{
+  margin:0;
+  padding:0;
+  line-height:1.3em;
+}
+
+/* extra tidbits
+********************************************************************************************/
+#overlay, #lightbox{
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+}
+#overlay{
+	background:#000;
+	-moz-opacity: 0.6;
+	opacity:.60;
+	filter: alpha(opacity=60);
+	z-index:500;
+}
+#lightbox{
+	z-index:600;
+}
+#lightbox #inner{
+	width:300px;
+	padding:10px;
+	margin:100px auto;
+	background:#fff;
+	border:1px solid #eee;
+}

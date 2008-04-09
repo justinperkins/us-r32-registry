@@ -1,0 +1,28 @@
+mkiv:
+  id: 1
+  chassis: mkiv
+  interior: leather
+  purchased_on: <%= 3.years.ago %>
+  created_at: <%= 3.years.ago %>
+  user_id: 1
+  year: 2004
+  color: dbp
+  for_sale: false
+  mods: no mods
+  notes: no notes
+  vin: 1234567898765432
+  picture_url: http://www.flickr.com/my_picture.jpg
+mkv:
+  id: 2
+  chassis: mkv
+  interior: leather
+  purchased_on: <%= 1.month.ago %>
+  created_at: <%= 1.month.ago %>
+  user_id: 1
+  year: 2008
+  color: dbp
+  for_sale: false
+  mods: no mods
+  notes: no notes
+  vin: 1234567898765433
+  picture_url: http://www.flickr.com/my_picture_2.jpg

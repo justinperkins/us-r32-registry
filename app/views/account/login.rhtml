@@ -1,0 +1,14 @@
+<% form_for :user, @user, :url => { :action=> "login" } do |f| -%>
+  <fieldset>
+    <legend>Please Login</legend>
+    <p><label for="user_email">Email:</label>
+      <%= f.text_field 'email', :class => 'text' %>
+      <em class="highlight"><%= @user.errors[:email] %></em></p>
+    <p><label for="user_password">Password:</label>
+      <%= f.password_field 'password', :class => 'text' %>
+      <em class="highlight"><%= @user.errors[:password] %></em>
+      <%= link_to 'Forgot your password?', :action => 'forgot_password' %></p>
+    <p class="btn"><%= submit_tag "Login &#187;" %>
+      <%= link_to "Create an account if you don't have one.", :action => 'create' %></p>
+  </fieldset>
+<% end -%>

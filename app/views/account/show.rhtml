@@ -1,0 +1,31 @@
+<h2>The Profile of <%= h @showing_user.display_name %></h2>
+<fieldset>
+  <legend>Personal Information</legend>
+  <p><strong>Name:</strong>
+    <%= h @showing_user.display_name %></p>
+  <p class="email"><strong>Email:</strong>
+    <% if @showing_user.hide_email -%>
+      <em>Hidden <%= ", but we encourage you to show your email address. We use #{link_to 'email enkoding', 'http://hivelogic.com/enkoder', :target => '_blank'} to hide your personal information from spammers." if @showing_user.user_can_alter_this( @user ) %></em>
+    <% else -%>
+      <%= enkode link_to(@showing_user.email, "mailto:#{@showing_user.email}") %>
+      <%= "<em>Surprised to see the email address? We use #{link_to 'email enkoding', 'http://hivelogic.com/enkoder', :target => '_blank'} to hide your personal information from spammers</em>" if @showing_user.user_can_alter_this( @user ) %>
+    <% end -%>
+  </p>
+  <p><strong>Location:</strong>
+    <%= h @showing_user.city %>, <%= h @showing_user.state %></p>
+  <p><strong>VW Vortex username:</strong>
+    <%= @showing_user.vortex_id.blank? ? '<em>not provided</em>' : h(@showing_user.vortex_id) %></p>
+  <p><strong>Website:</strong>
+    <%= @showing_user.website.blank? ? '<em>not provided</em>' : link_to(h(@showing_user.website), h(@showing_user.website)) %></p>
+  <% if @showing_user.user_can_alter_this( @user ) -%>
+    <p><em><%= link_to 'Edit profile', :action => 'edit', :id => @showing_user %></em></p>
+  <% end -%>
+</fieldset>
+<fieldset>
+  <legend>R32 Information</legend>
+  <% if @showing_user.has_r32? -%>
+    <%= render :partial => 'r32s/r32', :collection => @showing_user.r32s %>
+  <% else -%>
+    <p><%= h @showing_user.display_name %> does not have an R32, what a shame!</p>
+  <% end -%>
+</fieldset>

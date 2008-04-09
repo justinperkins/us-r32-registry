@@ -1,0 +1,6 @@
+<% form_for :user, @create_user, :url => { :action => @controller.action_name } do |f| -%>
+  <h2>Setup Your Account or <%= link_to 'Login', :action => 'login' %></h2>
+  <p>Before you can add your R32 to the registry, you'll need to create an account. 
+    If you already have an account with us, <%= link_to 'you can login here', :action => 'login' %>.</p>
+  <%= render :partial => 'form', :object => @create_user, :locals => { :f => f } %>
+<% end -%>

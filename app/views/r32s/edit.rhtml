@@ -1,0 +1,4 @@
+<% form_for :r32, @r32, { :url => { :action => @controller.action_name } }, :html => { :id => 'r32_form' } do |f| -%>
+  <h2>Edit Your R32</h2>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<% end -%>

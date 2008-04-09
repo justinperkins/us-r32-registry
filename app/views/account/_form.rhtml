@@ -1,0 +1,45 @@
+<fieldset>
+  <p><label for="user_first_name">First name:</label>
+    <%= f.text_field "first_name", :class => 'text' %>
+    <em class="highlight"><%= form.errors[:first_name] %></em></p>
+  <p><label for="user_last_name">Last name:</label>
+    <%= f.text_field "last_name", :class => 'text' %>
+    <em class="highlight"><%= form.errors[:last_name] %></em></p>
+  <p><label for="user_email">Email:</label>
+    <%= f.text_field "email", :class => 'text' %>
+    <em class="highlight"><%= form.errors[:email] %></em></p>
+  <p><label for="user_email">City:</label>
+    <%= f.text_field "city", :class => 'text' %>
+    <em class="highlight"><%= form.errors[:city] %></em>
+    <em>so we can put you on the U.S. map, but you MUST use a U.S. city</em></p>
+  <p><label for="user_state">State:</label
+    <%= f.select "state", states, { :include_blank => true } %>
+    <em class="highlight"><%= form.errors[:state] %></em>
+    <em>so we can put you on the map</em></p>
+  <% if @controller.action_name == 'create' -%>
+    <p><label for="user_password">Password:</label>
+      <%= password_field_tag "user[password]", nil, :class => 'text' %>
+      <em class="highlight"><%= form.errors[:password] %></em></p>
+    <p><label for="user_password_confirmation">Confirm password:</label>
+      <%= password_field_tag "user[password_confirmation]", nil, :class => 'text' %>
+      <em class="highlight"><%= form.errors[:password_confirmation] %></em></p>
+  <% end -%>
+  <p class="btn"><%= submit_tag "#{@controller.action_name == 'create' ? 'Create your account &#187;' : 'Save changes &#187;'}", :class => 'btn' %>
+    <%= link_to 'cancel edit', :action => 'show', :id => form.id if @controller.action_name == 'edit' %></p>
+</fieldset>
+
+<fieldset>
+  <legend>Optional Information</legend>
+  <p><label for="user_vortex_id">VW Vortex username:</label>
+    <%= f.text_field "vortex_id", :class => 'text' %>
+    <em class="highlight"><%= form.errors[:vortex_id] %></em></p>
+  <p><label for="user_website">Your website:</label>
+    <%= f.text_field "website", :class => 'text' %>
+    <em class="highlight"><%= form.errors[:website] %></em></p>
+  <% if @controller.action_name == 'edit' -%>
+    <p><label for="hide_email">Hide email:</label>
+      <%= f.check_box 'hide_email' %></p>
+  <% end -%>
+  <p class="btn"><%= submit_tag "#{@controller.action_name == 'create' ? 'Create your account &#187;' : 'Save changes &#187;'}", :class => 'btn' %>
+    <%= link_to 'cancel edit', :action => 'show', :id => form.id if @controller.action_name == 'edit' %></p>
+</fieldset>

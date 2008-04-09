@@ -1,0 +1,18 @@
+<h2><%= @r32s.size %> <%= @active_chassis ? correct_case( @active_chassis ) : nil %> R32s on a Map</h2>
+<% if @active_chassis -%>
+  <p>Viewing only <%= correct_case @active_chassis %> R32s - 
+    <%= link_to "View all #{ correct_case( opposite_chassis( @active_chassis ) ) }", :action => 'map', :chassis => opposite_chassis( @active_chassis ) %> -
+    <%= link_to 'View all', :action => 'map' %></p>
+<% else -%>
+  <p>Viewing all R32s -
+    <%= link_to 'View only MkIV', :action => 'map', :chassis => 'mkiv' %> -
+    <%= link_to 'View only MkV', :action => 'map', :chassis => 'mkv' %></p>
+<% end -%>
+<div id="map"></div>
+<%= javascript_tag update_page { |page|
+  @r32s.each do |r|
+    page.call 'Map.addR32', r.to_js_r32
+  end
+  page.map.initialize
+} %>
+</script>

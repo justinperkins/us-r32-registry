@@ -1,0 +1,42 @@
+<div class="r32 r32_<%= cycle(0, 1) %>">
+  <%= image_tag "#{r32.image}", :class => 'r32_photo' unless blog_mode? %>
+  <%= '<p><strong>This R32 is preordered and waiting delivery</strong></p>' if r32.preordered -%>
+  <%= '<p><strong>This R32 is for sale</strong></p>' if r32.for_sale -%>
+  <p><strong>Chassis:</strong>
+    <%= correct_case r32.chassis %></p>
+  <p><strong>Color:</strong>
+    <%= r32.color.upcase %></p>
+  <p><strong>Interior:</strong>
+    <%= r32.interior.titleize %></p>
+  <% if r32.mkv? && !r32.preordered -%>  
+    <p><strong>Edition number:</strong>
+      <%= r32.edition_number %></p>
+  <% end -%>
+  <% unless r32.preordered -%>
+    <p><strong>Purchased:</strong>
+      <%= format_date r32.purchased_on %></p>
+    <p><strong>Mileage:</strong>
+      <%= number_with_delimiter( r32.mileage || 0 ) %></p>
+    <%= '<p><strong>This R32 has been totaled</strong></p>' if r32.totaled? %>
+    <p><strong>Notes:</strong>
+      <%= r32.notes ? format_text(r32.notes) : 'none' %></p>
+    <p><strong>Mods:</strong>
+      <%= r32.mods ? format_text(r32.mods) : 'none' %></p>
+  <% end -%>
+  <% if blog_mode? || !viewing_user_profile? -%>
+    <p><strong>Owned by:</strong> <%= link_to "#{r32.owner}", :controller => 'account', :action => 'show', :id => r32.user.id %></p>
+    <p><strong>Location:</strong> <%= "#{r32.user.city}, #{r32.user.state}" %></p>
+  <% end -%>
+  <% unless blog_mode? -%>
+    <p><%= link_to 'View this R32\'s blog', :controller => 'blogs', :action => 'show', :id => r32.id %></p>
+  <% end -%>
+  <% if blog_mode? || viewing_user_profile? -%>
+    <p><%= link_to 'View this R32\'s profile', :controller => 'r32s', :action => 'show', :id => r32.id %></p>
+  <% end -%>
+  <% if r32.user_can_alter_this( @user ) %>
+    <p><em><%= link_to 'Edit this R32', :controller => 'r32s', :action => 'edit', :id => r32.id %></em></p>
+  <% end -%>
+  <% unless blog_mode? -%>
+    <div class="clearfix-right"></div>
+  <% end -%>
+</div>

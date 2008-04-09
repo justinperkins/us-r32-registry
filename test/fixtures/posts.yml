@@ -1,0 +1,20 @@
+first:
+  title: hello
+  content: this is a test
+  created_at: <%= 4.months.ago %>
+  r32_id: 1
+second:
+  title: hello2
+  content: this is a test2
+  created_at: <%= 3.months.ago %>
+  r32_id: 1
+third:
+  title: hello3
+  content: this is a test3
+  created_at:  <%= 4.months.ago %>
+  r32_id: 2
+fourth:
+  title: hello4
+  content: this is a test4
+  created_at:  <%= 1.months.ago %>
+  r32_id: 2

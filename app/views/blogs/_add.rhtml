@@ -1,0 +1,3 @@
+<fieldset id="add_log_entry_fieldset" style="<%= @r32.posts.count > 0 && !%w{ new add }.include?(@controller.action_name) ? 'display:none' : '' %>">
+  <%= render :partial => 'form' %>
+</fieldset>

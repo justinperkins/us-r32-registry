@@ -1,0 +1,6 @@
+<h2>You are viewing a single entry of this R32 log, <%= link_to 'view the entire log &rarr;' , :action => 'show', :id => @r32 %></h2>
+<div id="profile">
+  <%= render :partial => 'r32s/r32', :object => @r32 %>
+</div>
+<%= render :partial => 'entry', :object => @entry %>
+<div class="clearfix-right"></div>

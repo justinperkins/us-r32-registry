@@ -1,0 +1,14 @@
+<% if author_is_viewing? -%>
+  <%= render :partial => 'add' %>
+<% end -%>
+<div id="profile">
+  <%= render :partial => 'r32s/r32', :object => @r32 %>
+</div>
+<div id="posts">
+  <%= render :partial => 'posts' %>
+</div>
+<%= will_paginate @entries %>
+<div class="clearfix-both"></div>
+<% if author_is_viewing? -%>
+  <p class="help"><strong>Tip:</strong> Did you know you can double-click the title or content of your entries to edit them?</p>
+<% end -%>

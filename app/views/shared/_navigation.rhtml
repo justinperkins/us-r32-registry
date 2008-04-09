@@ -1,0 +1,31 @@
+<% @user ||= User.find(session[:user_id]) if session[:user_id] -%>
+<ul id="navigation">
+  <% unless blog_mode? -%>
+    <% if @user -%>
+      <li><%= link_to 'Your Profile', :controller => 'account', :action => 'show', :id => @user.id %></li>
+      <li><%= link_to 'Your R32 Logs', :controller => 'blogs', :action => 'mine' %></li>
+    <% else -%>
+      <li><%= link_to 'Login', :controller => 'account', :action => 'login' %></li>
+      <li><%= link_to 'Create an Account', :controller => 'account', :action => 'create' %></li>
+    <% end -%>
+    <li><%= link_to 'All R32s', :controller => 'r32s' %></li>
+    <li><%= link_to 'MkIV R32s', :controller => 'r32s', :action => 'index', :chassis => 'mkiv' %></li>
+    <li><%= link_to 'MkV R32s', :controller => 'r32s', :action => 'index', :chassis => 'mkv' %></li>
+    <li><%= link_to 'R32s For Sale', :controller => 'r32s', :action => 'for_sale' %></li>
+    <li><%= link_to 'R32s on a Map', :controller => 'r32s', :action => 'map' %></li>
+    <li><%= link_to 'Owner Logs', :controller => 'blogs' %></li>
+    <li><%= link_to 'Add Your R32', :controller => 'r32s', :action => 'add' %></li>
+    <li><%= link_to 'About the R32', :controller => 'r32s', :action => 'about' %></li>
+    <% if @user -%>
+      <li><%= link_to 'Logout', :controller => 'account', :action => 'logout' %></li>
+    <% end -%>
+  <% else -%>
+    <li><%= link_to 'View R32 Registry', '/' %></li>
+    <li><%= link_to 'All Owner Logs', :controller => 'blogs' %></li>
+    <% if @r32.user_can_alter_this( @user ) -%>
+      <li><%= link_to 'Add New Entry', {:controller => 'blogs', :action => 'new', :id => @r32.id}, :onclick => 'r32.toggleLogEntry();return false;', :id => 'new_entry_toggler' %></li>
+    <% end -%>
+  <% end -%>
+</ul>
+<div class="clearfix-left"></div>
+<%= cookies[:user_id]%>

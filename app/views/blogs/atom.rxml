@@ -1,0 +1,43 @@
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.feed "version" => "0.3", "xml:lang"=>"en-US", "xmlns"=>"http://purl.org/atom/ns#", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
+
+  xml.title @page_title
+  xml.tagline "mode"=>"escaped", "type"=>"text/html"
+  xml.id "tag:#{controller.request.host},2007:r32-registry"
+  xml.generator "US R32 Registry", "url" => "http://www.usr32registry.org"
+  xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for(:controller => '/blogs', :action => 'show', :id => @r32, :only_path => false)
+
+  xml.modified @entries.first.created_at.xmlschema unless @entries.empty?
+  
+  unless @entries.empty?
+    @entries.each do |e|
+      xml.entry do
+        xml.author { xml.name h( @r32.owner ) }
+        xml.id "tag:#{controller.request.host},2007:r32-registry-for-#{ @r32.id }-entry-#{ e.id }"
+
+        xml.issued e.created_at.xmlschema
+        xml.modified e.updated_at.xmlschema
+        xml.title h( e.title )
+
+        xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for( :controller => '/blogs', :action => 'show', :id => @r32.id, :only_path => false )
+
+        content = format_text e.content
+        content << "<br /><br />Logged on: #{ format_date e.created_at }"
+        xml.content "<p>#{ content }</p>", "type"=>"text/html", "mode"=>"escaped"
+      end
+    end
+  else
+    xml.entry do
+      xml.author { xml.name h( @r32.owner ) }
+      xml.id "tag:#{controller.request.host},2007:r32-registry-for-#{ @r32.id }-empty"
+
+      xml.issued 100.days.ago
+      xml.modified 100.days.ago
+      xml.title "#{ h @r32.owner } has no information"
+
+      xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for( :controller => '/blogs', :action => 'show', :id => @r32, :only_path => false )
+
+      xml.content "<p>#{ h @r32.owner } has not logged any information about their #{ h r32_to_s( @r32, false ) }.</p>", "type"=>"text/html", "mode"=>"escaped"
+    end
+  end
+end

@@ -1,0 +1,87 @@
+<div id="javascript_warning">
+  <h3>Your Browser Needs to Have JavaScript Turned On to Use This Page</h3>
+</div>
+<fieldset id="r32_required" style="display:none">
+  <legend>Required Information</legend>
+  <% if @controller.action_name == 'add' -%>
+    <img id="r32_photo" src="" style="display:none" />
+    <p><label for="r32_chassis">Chassis:</label>
+      <%= f.select "chassis", R32.possible_chassis, { :include_blank => true } %>
+      <em class="highlight"><%= @r32.errors[:chassis] %></em></p>
+  <% else -%>
+    <%= image_tag @r32.image, :id => 'r32_photo' %>
+    <%= f.hidden_field 'chassis' %>
+    <p><strong>Chassis:</strong>
+      <%= correct_case @r32.chassis %></p>
+  <% end -%>
+
+  <p class="mkiv"><label for="mkiv_r32_color">Color:</label>
+    <%= f.select "color", R32.possible_colors( :mkiv => true ), { :include_blank => true }, :id => 'mkiv_r32_color' %>
+    <em class="highlight"><%= @r32.errors[:color] %></em></p>
+  <p class="mkiv"><label for="mkiv_r32_interior">Interior:</label>
+    <%= f.select "interior", R32.possible_interiors( :mkiv => true ), { :include_blank => true }, :id => 'mkiv_r32_interior' %>
+    <em class="highlight"><%= @r32.errors[:interior] %></em></p>
+
+  <p class="mkv"><label for="r32_preordered">Pre-ordered:</label>
+    <%= f.check_box "preordered" %>
+    <em>Check this box ONLY IF you are still waiting for your R32 to be delivered</em>
+    <em class="highlight"><%= @r32.errors[:preordered] %></em></p>
+
+  <p class="mkv"><label for="mkv_r32_color">Color:</label>
+    <%= f.select "color", R32.possible_colors( :mkv => true ), { :include_blank => true }, :id => 'mkv_r32_color' %>
+    <em class="highlight"><%= @r32.errors[:color] %></em></p>
+  <p class="mkv"><label for="mkv_r32_interior">Interior:</label>
+    <%= f.select "interior", R32.possible_interiors( :mkv => true ), { :include_blank => true }, :id => 'mkv_r32_interior' %>
+    <em class="highlight"><%= @r32.errors[:interior] %></em></p>
+
+  <p class="mkv" id="r32_edition_number_p"><label for="r32_edition_number">Edition number:</label>
+    <%= f.text_field "edition_number", :class => 'text' %>
+    <em class="highlight"><%= @r32.errors[:edition_number] %></em></p>
+  <p id="r32_vin_p"><label for="r32_vin">VIN:</label>
+    <%= f.text_field "vin", :class => 'text' %>
+    <em class="highlight"><%= @r32.errors[:vin] %></em>
+    <em class="meta">For tracking this vehicle across multiple owners and will never, ever be displayed to the public
+      <%= "<br />It looks like the previous owner of this R32 already registered it, #{ enkode link_to('please contact us', 'mailto:owner@usr32registry.org') } to take ownership of this R32." if @r32.errors[:vin] && @r32.errors[:vin] == 'Already registered!' %>
+    </em>
+  </p>
+
+  <p id="r32_purchased_on_p"><label for="r32_purchased_on">Purchased on:</label>
+    <%= f.text_field "purchased_on", :class => 'text', :value => (@r32.purchased_on ? format_date(@r32.purchased_on) : nil) %>
+    <em class="highlight"><%= @r32.errors[:purchased_on] %></em>
+    <em class="meta">Use format: mm/dd/yyyy</em>
+  </p>
+
+  <p class="btn"><%= submit_tag "#{@controller.action_name == 'add' ? 'Add this R32 &#187;' : 'Save changes &#187;'}", :class => 'btn' %></p>
+  <div class="clearfix-right"></div>
+</fieldset>
+
+<fieldset id="r32_optional" style="display:none">
+  <legend>Optional Information</legend>
+  <p id="r32_picture_url_field"><label for="r32_picture_url">Picture URL:</label>
+    <%= f.text_field 'picture_url' %>
+    <em class="highlight"><%= @r32.errors[:picture_url] %></em>
+    <em class="meta">Please use a 500 pixel wide image or less, we will not resize your image for you.</em>
+  </p>
+  <p class="check"><label for="r32_mileage">Mileage:</label>
+    <%= f.text_field "mileage", :class => 'text' %>
+    <em class="highlight"><%= @r32.errors[:mileage] %></em>
+  </p>
+  <p class="check"><label for="r32_totaled">Totaled:</label>
+    <%= f.check_box "totaled" %>
+    <em class="highlight"><%= @r32.errors[:totaled] %></em>
+    <em>please check this box if this R32 has been totaled in an accident</em>
+  </p>
+  <p class="check"><label for="r32_for_sale">For sale:</label>
+    <%= f.check_box "for_sale" %>
+    <em class="highlight"><%= @r32.errors[:for_sale] %></em>
+    <em>if you mark your car as "for sale", be sure to put your contact info in the notes box below</em>
+  </p>
+  <p><label for="r32_notes">Notes:</label>
+    <%= f.text_area "notes" %>
+    <em class="highlight"><%= @r32.errors[:notes] %></em></p>
+  <p><label for="r32_mods">Mods:</label>
+    <%= f.text_area "mods" %>
+    <em class="highlight"><%= @r32.errors[:mods] %></em></p>
+  <p class="btn"><%= submit_tag "#{@controller.action_name == 'add' ? 'Add this R32 &#187;' : 'Save changes &#187;'}", :class => 'btn' %></p>
+</fieldset>
+<%= javascript_tag "r32.prepare(#{@controller.action_name == 'edit'});" %>

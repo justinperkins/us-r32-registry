@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+admin:
+  id: 1
+  first_name: admin
+  last_name: istrator
+  city: austin
+  state: tx
+  vortex_id: some_vw_name
+  website: http://www.google.com
+  email: admin@usr32registry.org
+  password: 9a91e1d8d95b6315991a88121bb0aa9f03ba0dfc # test
+  
+normal:
+  id: 2
+  first_name: normal
+  last_name: user
+  email: foo@bar.com
+  city: austin
+  state: tx
+  vortex_id: some_vw_name
+  website: http://www.google.com
+  password: 9a91e1d8d95b6315991a88121bb0aa9f03ba0dfc # test

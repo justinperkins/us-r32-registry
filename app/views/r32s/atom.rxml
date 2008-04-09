@@ -1,0 +1,44 @@
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.feed "version" => "0.3", "xml:lang"=>"en-US", "xmlns"=>"http://purl.org/atom/ns#", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
+
+  xml.title @page_title
+  xml.tagline "mode"=>"escaped", "type"=>"text/html"
+  xml.id "tag:#{controller.request.host},2007:r32-registry"
+  xml.generator "US R32 Registry", "url" => "http://www.usr32registry.org"
+  xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for(:controller => '/r32s', :action => ( @active_chassis == 'for_sale' ? 'for_sale' : 'index' ), :chassis => ( %w{ mkiv mkv }.include?( @active_chassis ) ? @active_chassis : nil ), :only_path => false)
+
+  xml.modified @entries.first.updated_at.xmlschema unless @entries.empty?
+  
+  unless @entries.empty?
+    @entries.each do |e|
+      xml.entry do
+        xml.author { xml.name 'R32 Registry' }
+        xml.id "tag:#{controller.request.host},2007:r32-registry-of-#{ e.id }"
+
+        xml.issued e.created_at.xmlschema
+        xml.modified e.updated_at.xmlschema
+        xml.title h( "#{ r32_to_s e }" )
+
+        xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for( :controller => '/r32s', :action => 'show', :id => e.id, :only_path => false )
+        content = "#{ r32_to_s e }<br />"
+        content << "Location: #{ h e.user.city }, #{ h e.user.state.upcase }<br />"
+        content << "Registered: #{ format_date e.created_at }<br /><br />"
+        content << "<a href=\"#{ url_for :controller => '/r32s', :action => 'show', :id => e.id }\">View this R32</a> or <a href=\"#{ url_for :controller => '/account', :action => 'show', :id => e.user.id }\">the profile of #{ e.owner }</a> or <a href=\"#{ url_for :controller => '/blogs', :action => 'show', :id => e.id }\">this R32's owner log</a>"
+        xml.content "<p>#{ content }</p>", "type"=>"text/html", "mode"=>"escaped"
+      end
+    end
+  else
+    xml.entry do
+      xml.author { xml.name 'Nobody' }
+      xml.id "tag:#{controller.request.host},2007:r32-registry-for-logs-empty"
+
+      xml.issued 100.days.ago
+      xml.modified 100.days.ago
+      xml.title "No R32s registered"
+
+      xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for( :controller => '/r32s', :chassis => @active_chassis, :only_path => false )
+
+      xml.content "<p>No R32s registered.</p>", "type"=>"text/html", "mode"=>"escaped"
+    end
+  end
+end

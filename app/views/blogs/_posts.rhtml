@@ -1,0 +1,5 @@
+<% if @r32.has_posts? -%>
+  <%= render :partial => 'entry', :collection => @entries %>
+<% else -%>
+  <h2><%= author_is_viewing? ? 'You have' : "#{@r32.owner} has" %> not logged any information about <%= author_is_viewing? ? 'your' : 'their' %> <%= r32_to_s @r32, false %>.</h2>
+<% end -%>

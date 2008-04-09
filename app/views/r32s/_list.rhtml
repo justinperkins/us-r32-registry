@@ -1,0 +1,22 @@
+<table class="r32s" cellpadding="0" cellspacing="0">
+  <thead>
+    <th><%= link_to "Chassis #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.chassis' ) }", url_for_sorting( @sort_by, 'r32s.chassis', @sort_direction) %></th>
+    <th><%= link_to "Color #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.color' ) }", url_for_sorting( @sort_by, 'r32s.color', @sort_direction) %></th>
+    <th><%= link_to "Interior #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.interior' ) }", url_for_sorting( @sort_by, 'r32s.interior', @sort_direction) %></th>
+    <% if @active_chassis && R32.chassis_has_edition_number( @active_chassis ) -%>
+      <th><%= link_to "Edition Number (MkV) #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.edition_number' ) }", url_for_sorting( @sort_by, 'r32s.edition_number', @sort_direction) %></th>
+    <% end -%>
+    <th><%= link_to "Purchased #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.purchased_on' ) }", url_for_sorting( @sort_by, 'r32s.purchased_on', @sort_direction) %></th>
+    <th><%= link_to "For Sale? #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.for_sale' ) }", url_for_sorting( @sort_by, 'r32s.for_sale', @sort_direction) %></th>
+    <th><%= link_to "Preordered/Owned #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.preordered' ) }", url_for_sorting( @sort_by, 'r32s.preordered', @sort_direction) %></th>
+    <th><%= link_to "Owner #{ sort_identifier_for_header( @sort_by, @sort_direction, 'users.first_name' ) }", url_for_sorting( @sort_by, 'users.first_name', @sort_direction) %></td>
+    <th><%= link_to "Location #{ sort_identifier_for_header( @sort_by, @sort_direction, 'users.city' ) }", url_for_sorting( @sort_by, 'users.city', @sort_direction) %></td>
+    <th>R32 Log</td>
+    <th>Details</td>
+    <% if @user && @user.is_admin? -%>
+      <th>Delete?</th>
+    <% end -%>
+  </thead>
+  <%= render :partial => 'r32_listing', :collection => @r32s %>
+</table>
+<div class="clearfix-both"></div>

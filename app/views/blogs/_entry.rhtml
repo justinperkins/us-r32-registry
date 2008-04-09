@@ -1,0 +1,26 @@
+<div class="entry" id="entry_<%= entry.id %>">
+  <h2 class="title"><%= entry.created_at.strftime('%B %d, %Y') %>: <span id="entry_<%= entry.id %>_title"><%= h entry.title %></span>
+    <%= delete_entry_link entry %>
+    <%= link_to 'permalink &rarr;', { :action => 'single', :id => entry }, :class => 'permalink' unless @controller.action_name == 'single' %>
+  </h2>
+  <div class="content" id="entry_<%= entry.id %>_content">
+    <p><%= format_text entry.content %></p>
+  </div>
+  <%= r32_in_place_editor "entry_#{entry.id}_title", 
+                      { 
+                        :url => { :action => 'edit', :id => entry.id, :type => 'title' },
+                        :load_text_url => { :action => 'fetch_for_edit', :type => 'title', :id => entry.id },
+                        :double_click_to_edit => true,
+                        :save_text => 'Save',
+                        :script => true
+                      } if entry.r32.user_can_alter_this( @user ) %>
+  <%= r32_in_place_editor "entry_#{entry.id}_content",
+                      { 
+                        :url => { :action => 'edit', :id => entry.id, :type => 'content' },
+                        :rows => 5,
+                        :load_text_url => { :action => 'fetch_for_edit', :type => 'content', :id => entry.id },
+                        :double_click_to_edit => true,
+                        :save_text => 'Save',
+                        :script => true
+                      } if entry.r32.user_can_alter_this( @user ) %>
+</div>

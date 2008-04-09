@@ -1,0 +1,20 @@
+/*
+
+hacks for all versions of ie
+
+*/
+
+#navigation li{
+  padding:5px 5px 5px;
+  margin:0 10px 5px 0;
+}
+#navigation li a:hover{
+  padding-top:5px;
+  margin-bottom:5px;
+}
+#content form p.btn{
+  padding-left:13.25em;
+}
+#content div.entry{
+  zoom:1;
+}

@@ -1,0 +1,22 @@
+<% @post ||= Post.new :created_at => Time.now.strftime('%m/%d/%Y') -%>
+<legend>Add a new entry to your log</legend>
+<% remote_form_for :post, @post, :url => { :action=> "add", :id => @r32.id }, 
+            :html => { :id => 'add_log_entry' } do |f| -%>
+  <p><label for="post_title">Title:</label>
+    <%= f.text_field 'title', :class => 'text' %>
+    <em class="highlight"><%= @post.errors[:title] %></em>
+  </p>
+  <p><label for="post_created_at">Date this occurred:</label>
+    <%= f.text_field 'created_at', :class => 'text' %>
+    <em class="highlight"><%= @post.errors[:created_at] %></em>
+    <em>Tip: Use dates from the past to enter events for your R32 that already occurred</em>
+    <em class="meta">Format: mm/dd/yyyy</em>
+  </p>
+  <p><label for="post_content">Entry:</label>
+    <%= f.text_area 'content' %>
+    <em class="highlight"><%= @post.errors[:content] %></em>
+    <em>You can use HTML, URLs will be automatically converted to links.</em>
+  </p>
+  <p class="btn"><%= submit_tag 'Add Entry &#187;', :onclick => "$('indicator').show()" %>
+    <%= image_tag 'indicator.gif', :id => 'indicator', :style => 'display:none' %></p>
+<% end -%>

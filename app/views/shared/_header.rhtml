@@ -1,0 +1,10 @@
+<div id="header">
+  <h1><%= link_to 'U.S. R32 Registry', '/', :title => 'go to: US R32 Registry Home Page' %></h1>
+  <h2>Where R32s Come to Hang Out</h2>
+  <% unless blog_mode? -%>
+    <%= image_tag 'header.jpg', :alt => 'photo of MkIV and MkV R32' %>
+  <% else -%>
+    <h3><%= @page_title %></h3>
+    <%= image_tag @r32.image, :alt => "photo of R32", :height => 138 %>
+  <% end -%>
+</div>

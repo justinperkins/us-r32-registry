@@ -1,0 +1,15 @@
+<div id="footer">
+  <p class="meta">This site was created for R32 owners to help share, track, sell and discover Volkswagen R32s in the United States.
+    <%= enkode link_to('Contact', 'mailto:owner@usr32registry.org') %>
+    |
+    <% if session[:user_id] -%>
+      <%= link_to 'Logout', :controller => 'account', :action => 'logout' %>
+    <% else -%>
+      <%= link_to 'Login', :controller => 'account', :action => 'login' %>
+    <% end -%>
+    |
+    <%= link_to 'RSS Feeds', :controller => 'about', :action => 'feeds' %>
+  </p>
+</div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">/*<![CDATA[*/_uacct = "UA-251346-8";if(typeof urchinTracker == 'function'){urchinTracker();}/*]]>*/</script>
