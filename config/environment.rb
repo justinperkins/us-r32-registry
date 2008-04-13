@@ -42,6 +42,10 @@ ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance|
   "<span class=\"fieldWithErrors\">#{html_tag}</span>" 
 }
 
+salts = "#{RAILS_ROOT}/lib/salts.rb"
+load(salts) if File.exist?(salts)
+GLOBAL_SALT = 'salty goodness' unless defined? GLOBAL_SALT
+
 # Allow per-developer configuration settings in "#{$RAILS_ROOT}/.railsrc"
 # http://weblog.jamisbuck.org/2007/2/1/per-developer-configuration
 if RAILS_ENV != "production" 

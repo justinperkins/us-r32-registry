@@ -12,7 +12,7 @@ class AccountController < ApplicationController
     case request.method
     when :post
       if user = User.authenticate(params[:user][:email], params[:user][:password])
-        cookies[:user_id] = {:value => user.id.to_s, :expires => 1.year.from_now}
+        cookies[:user_hash] = {:value => user.secret_hash, :expires => 1.year.from_now}
         user_to_session user
         flash[:notice]  = "Login successful"
         redirect_to '/'
@@ -27,7 +27,7 @@ class AccountController < ApplicationController
   
   def logout
     session[:user_id] = nil
-    cookies.delete :user_id
+    cookies.delete :user_hash
     redirect_to '/'
   end
 

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :confirmations
   before_create :crypt_password
   before_save :update_latitude_and_longitude
+  after_create :build_secret_hash
   
   def has_r32?
     self.r32s.count > 0
@@ -56,6 +57,11 @@ class User < ActiveRecord::Base
     sent_ok
   end
     
+  def build_secret_hash
+    self.secret_hash = Digest::SHA1.hexdigest("#{ GLOBAL_SALT }-#{ self.id }")
+    return true
+  end
+  
   protected
 
   def self.sha1(pass)

@@ -54,7 +54,8 @@ module LoginSystem
   end
   
   def prepare_user_session_from_last_visit
-    cookies[:user_id] && authorize?(cookies[:user_id]) && user_to_session(cookies[:user_id]) unless session[:user_id]
+    return if session[:user_id] && authorize?(session[:user_id])
+    cookies[:user_hash] && authorize?(cookies[:user_hash]) && user_hash_to_session(cookies[:user_hash])
   end
   
   # overwrite if you want to have special behavior in case the user is not authorized

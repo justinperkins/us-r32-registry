@@ -14,13 +14,18 @@ class ApplicationController < ActionController::Base
   end
   
   def user_to_session(user)
-    user = User.find_by_id(user) unless user.class == User
+    user = User.find_by_id(user) unless user.is_a? User
     if user
       session[:user_id] = user.id
       user
     else
       nil
     end
+  end
+  
+  def user_hash_to_session(user_hash)
+    user = User.find_by_secret_hash(user_hash)
+    user_to_session(user) if user
   end
   
   def correct_case chassis
