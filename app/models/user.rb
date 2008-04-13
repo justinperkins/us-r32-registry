@@ -16,11 +16,6 @@ class User < ActiveRecord::Base
     self.r32s.count > 0
   end
   
-  def is_admin?
-    # weak, but it works
-    self.id == 1
-  end
-  
   def display_name
     "#{first_name} #{last_name}"
   end
