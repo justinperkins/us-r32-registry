@@ -46,7 +46,7 @@ module LoginSystem
 
     return true if session[:user_id] && authorize?(session[:user_id])
 
-    return true if cookies[:user_id] && authorize?(cookies[:user_id]) && user_to_session(cookies[:user_id])
+    return true if cookies[:user_hash] && user_hash_to_session(cookies[:user_hash]) && session[:user_id] && authorize?(session[:user_id])
 
     # call overwriteable reaction to unauthorized access
     access_denied
