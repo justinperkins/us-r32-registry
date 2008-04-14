@@ -12,7 +12,7 @@
     <%= f.text_field "city", :class => 'text' %>
     <em class="highlight"><%= form.errors[:city] %></em>
     <em>so we can put you on the U.S. map, but you MUST use a U.S. city</em></p>
-  <p><label for="user_state">State:</label
+  <p><label for="user_state">State:</label>
     <%= f.select "state", states, { :include_blank => true } %>
     <em class="highlight"><%= form.errors[:state] %></em>
     <em>so we can put you on the map</em></p>
