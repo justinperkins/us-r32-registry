@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
     
   def build_secret_hash
     self.secret_hash = Digest::SHA1.hexdigest("#{ GLOBAL_SALT }-#{ self.id }")
-    return true
+    self.save
   end
   
   protected
