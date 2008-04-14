@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   end
   
   def self.find_an_admin
-    find 1
+    find :first, :conditions => ["is_admin = ?", true] 
   end  
 
   def change_password(attributes)
