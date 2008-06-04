@@ -287,6 +287,9 @@ body.blog #content div.r32, #content div.list_meta{
   font-size:.9em;
   background:#fff;
 }
+#content div.entry h2.title form input.editor_field{
+  width:250px;
+}
 #content div.entry h2.title a.delete{
 }
 #content div.entry h2.title a.delete img{
@@ -304,6 +307,8 @@ body.blog #content div.r32, #content div.list_meta{
   background:#fff;
   display:block;
   margin:0 0 5px;
+  width:550px;
+  height:200px;
 }
 body.blog #content p.help{
   font-size:.95em;

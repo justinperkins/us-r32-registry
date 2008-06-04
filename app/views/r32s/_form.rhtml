@@ -22,11 +22,6 @@
     <%= f.select "interior", R32.possible_interiors( :mkiv => true ), { :include_blank => true }, :id => 'mkiv_r32_interior' %>
     <em class="highlight"><%= @r32.errors[:interior] %></em></p>
 
-  <p class="mkv"><label for="r32_preordered">Pre-ordered:</label>
-    <%= f.check_box "preordered" %>
-    <em>Check this box ONLY IF you are still waiting for your R32 to be delivered</em>
-    <em class="highlight"><%= @r32.errors[:preordered] %></em></p>
-
   <p class="mkv"><label for="mkv_r32_color">Color:</label>
     <%= f.select "color", R32.possible_colors( :mkv => true ), { :include_blank => true }, :id => 'mkv_r32_color' %>
     <em class="highlight"><%= @r32.errors[:color] %></em></p>

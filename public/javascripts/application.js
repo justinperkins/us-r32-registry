@@ -29,11 +29,8 @@ var r32 = {
   },
   preorderedClicked: function(event, quickness){
     var preordered;
-    if (event){
-      preordered = Event.element(event);
-    } else {
-      preordered = $('r32_preordered');
-    }
+    if (event) preordered = Event.element(event);
+    else preordered = $('r32_preordered');
     
     if (preordered.checked){
       if (quickness && quickness == true){
@@ -173,16 +170,6 @@ R32.prototype = {
   }
 };
 
-Element.addMethods({
-  /* helper functions for script.aculo.us */
-  blindDown:    function(element, options) { new Effect.BlindDown(element, options); },
-  blindUp:      function(element, options) { new Effect.BlindUp(element, options); },
-  fade:         function(element, options) { new Effect.Fade(element, options); },
-  appear:       function(element, options) { new Effect.Appear(element, options); },
-  highlight:    function(element, options) { new Effect.Highlight(element, options); },
-  pulsate:      function(element, options) { new Effect.Pulsate(element, options); }
-});
-
 Form.enableChildFormElements = function(node){
   node = $(node);
   if (node){
@@ -201,111 +188,3 @@ Form.disableChildFormElements = function(node){
     if (element && element.length > 0) element[0].disabled = true;
   }
 }
-
-Ajax.R32InPlaceEditor = Class.create();
-Object.extend(Object.extend(Ajax.R32InPlaceEditor.prototype, Ajax.InPlaceEditor.prototype), {
-  initialize: function(element, url, options) {
-    this.url = url;
-    this.element = $(element);
-
-    this.options = Object.extend({
-      paramName: "value",
-      okButton: true,
-      okText: "ok",
-      cancelLink: true,
-      cancelText: "cancel",
-      savingText: "Saving...",
-      clickToEditText: "Click to edit",
-      okText: "ok",
-      rows: 1,
-      onComplete: function(transport, element) {
-        new Effect.Highlight(element, {startcolor: this.options.highlightcolor});
-      },
-      onFailure: function(transport) {
-        alert("Error communicating with the server: " + transport.responseText.stripTags());
-      },
-      callback: function(form) {
-        return Form.serialize(form);
-      },
-      handleLineBreaks: true,
-      loadingText: 'Loading...',
-      savingClassName: 'inplaceeditor-saving',
-      loadingClassName: 'inplaceeditor-loading',
-      formClassName: 'inplaceeditor-form',
-      highlightcolor: '#fff',
-      highlightendcolor: "#ebebeb",
-      externalControl: null,
-      submitOnBlur: false,
-      doubleClickToEdit: true,
-      ajaxOptions: {},
-      evalScripts: false
-    }, options || {});
-    
-    if (this.options.doubleClickToEdit && !options['clickToEditText']) this.options.clickToEditText = 'Double-click to edit';
-
-    if(!this.options.formId && this.element.id) {
-      this.options.formId = this.element.id + "-inplaceeditor";
-      if ($(this.options.formId)) {
-        // there's already a form with that name, don't specify an id
-        this.options.formId = null;
-      }
-    }
-  
-    if (this.options.externalControl) {
-      this.options.externalControl = $(this.options.externalControl);
-    }
-  
-    this.originalBackground = Element.getStyle(this.element, 'background-color');
-    if (!this.originalBackground) {
-      this.originalBackground = "transparent";
-    }
-  
-    this.element.title = this.options.clickToEditText;
-  
-    this.onclickListener = this.enterEditMode.bindAsEventListener(this);
-    this.mouseoverListener = this.enterHover.bindAsEventListener(this);
-    this.mouseoutListener = this.leaveHover.bindAsEventListener(this);
-    Event.observe(this.element, (this.options.doubleClickToEdit ? 'dblclick' : 'click'), this.onclickListener);
-    Event.observe(this.element, 'mouseover', this.mouseoverListener);
-    Event.observe(this.element, 'mouseout', this.mouseoutListener);
-    if (this.options.externalControl) {
-      Event.observe(this.options.externalControl, (this.options.doubleClickToEdit ? 'dblclick' : 'click'), this.onclickListener);
-      Event.observe(this.options.externalControl, 'mouseover', this.mouseoverListener);
-      Event.observe(this.options.externalControl, 'mouseout', this.mouseoutListener);
-    }
-  },
-  createForm: function() {
-    this.form = document.createElement("form");
-    this.form.id = this.options.formId;
-    Element.addClassName(this.form, this.options.formClassName)
-    this.form.onsubmit = this.onSubmit.bind(this);
-
-    this.createEditField();
-
-    if (this.options.okButton) {
-      okButton = document.createElement("input");
-      okButton.type = "submit";
-      okButton.value = this.options.okText;
-      okButton.className = 'editor_ok_button';
-      this.form.appendChild(document.createTextNode(' '));
-      this.form.appendChild(okButton);
-    }
-
-    if (this.options.cancelLink) {
-      cancelLink = document.createElement("a");
-      cancelLink.href = "#";
-      cancelLink.appendChild(document.createTextNode(this.options.cancelText));
-      cancelLink.onclick = this.onclickCancel.bind(this);
-      cancelLink.className = 'editor_cancel';      
-      this.form.appendChild(document.createTextNode(' '));
-      this.form.appendChild(cancelLink);
-    }
-  },
-  onLoadedExternalText: function(transport) {
-    Element.removeClassName(this.form, this.options.loadingClassName);
-    this.editField.disabled = false;
-    // only set the value to the response body if we're not doing eval scripts
-    if ( !this.options.evalScripts ) this.editField.value = transport.responseText.stripTags();
-    Field.scrollFreeActivate(this.editField);
-  }
-});
