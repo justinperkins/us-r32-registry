@@ -1,3 +1,6 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <tr class="r32 r32_<%= cycle(0, 1) %> <%= 'preordered' if r32_listing.preordered %> <%= 'for_sale' if r32_listing.for_sale %>">
   <td><%= correct_case r32_listing.chassis %></td>
   <td><%= abbreviated_color r32_listing.color %></td>

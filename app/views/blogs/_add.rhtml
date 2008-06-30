@@ -1,3 +1,6 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <fieldset id="add_log_entry_fieldset" style="<%= @r32.posts.count > 0 && !%w{ new add }.include?(@controller.action_name) ? 'display:none' : '' %>">
   <%= render :partial => 'form' %>
 </fieldset>

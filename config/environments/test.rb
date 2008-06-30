@@ -1,3 +1,6 @@
+# Copyright 2007-2008 Justin Perkins
+# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
+
 # Settings specified here will take precedence over those in config/environment.rb
 
 # The test environment is used exclusively to run your application's

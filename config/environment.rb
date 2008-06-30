@@ -1,3 +1,6 @@
+# Copyright 2007-2008 Justin Perkins
+# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
+
 RAILS_GEM_VERSION = '1.2.3'
 
 # Bootstrap the Rails environment, frameworks, and default configuration

@@ -1,3 +1,6 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <div class="r32 r32_<%= cycle(0, 1) %>">
   <%= image_tag "#{r32.image}", :class => 'r32_photo' unless blog_mode? %>
   <%= '<p><strong>This R32 is preordered and waiting delivery</strong></p>' if r32.preordered -%>

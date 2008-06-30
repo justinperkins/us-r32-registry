@@ -1,3 +1,6 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <% form_for :r32, @r32, :url => { :action => @controller.action_name }, :html => { :id => 'r32_form' } do |f| -%>
   <h2>Add Your R32 to the Registry</h2>
   <%= render :partial => 'form', :locals => { :f => f } %>

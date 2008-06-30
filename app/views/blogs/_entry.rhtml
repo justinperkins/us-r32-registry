@@ -1,3 +1,6 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <div class="entry" id="entry_<%= entry.id %>">
   <h2 class="title"><%= entry.created_at.strftime('%B %d, %Y') %>: <span id="entry_<%= entry.id %>_title"><%= h entry.title %></span>
     <%= delete_entry_link entry %>

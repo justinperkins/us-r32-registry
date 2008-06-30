@@ -1,4 +1,6 @@
-<%= params.inspect %>
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <% form_for :search do -%>
   <p><label for="search_query">Search for:</label>
     <%= text_field_tag 'q', @search[:value], :id => 'search_query' %></p>

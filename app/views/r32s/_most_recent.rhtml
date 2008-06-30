@@ -1,1 +1,4 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <p>Most recent <%= link_to "#{correct_case(latest_r.chassis)} R", :action => 'show', :id => latest_r.id %> registered by <%= link_to latest_r.owner, :controller => 'account', :action => 'show', :id => latest_r.user.id %> <%= time_ago_in_words latest_r.created_at %> ago.</p>

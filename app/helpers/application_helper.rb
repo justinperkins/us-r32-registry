@@ -1,3 +1,6 @@
+# Copyright 2007-2008 Justin Perkins
+# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
+
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def delete_entry_link(entry)

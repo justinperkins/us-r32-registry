@@ -1,3 +1,6 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+
 <% @post ||= Post.new :created_at => Time.now.strftime('%m/%d/%Y') -%>
 <legend>Add a new entry to your log</legend>
 <% remote_form_for :post, @post, :url => { :action=> "add", :id => @r32.id }, 

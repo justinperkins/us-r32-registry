@@ -1,5 +1,8 @@
+Copyright 2007-2008 Justin Perkins
+
+The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
+
+Notes about this application:
 A Rails-app to allow R32 owners in the US to register their cars, to help them connect with one-another, keep track of changes/services/etc. on their vehicle and generally just have a place to share their car.
 
 This is a hybrid web app I wrote in my spare time in the Spring of 07. I'm using a lot of old Rails stuff, like the login_system generator that has now become acts_as_authenticated (or maybe it's something else now).
-
-I also haven't written any tests for this app. I suck.

@@ -1,3 +1,6 @@
+# Copyright 2007-2008 Justin Perkins
+# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
+
 # Don't change this file. Configuration is done in config/environment.rb and config/environments/*.rb
 
 unless defined?(RAILS_ROOT)
