@@ -10,7 +10,14 @@ class ApplicationController < ActionController::Base
   
   before_filter [ :prepare_user_session_from_last_visit, :clear_out_old_sessions ]
   
+  # uncomment this before_filter to throw up maintenence mode
+  # before_filter :maintenence
+  
   private
+  def maintenence
+    redirect_to '/maintenence.html' unless ['69.148.19.22', 'localhost', '127.0.0.1'].include?(request.env['REMOTE_ADDR'])
+  end
+  
   def clear_out_old_sessions
     sessions = CGI::Session::ActiveRecordStore::Session
     sessions.destroy_all(['updated_at < ?', 20.minutes.ago])
@@ -33,7 +40,7 @@ class ApplicationController < ActionController::Base
   
   def user_hash_to_session(user_hash)
     user = User.find_by_secret_hash(user_hash)
-    user_to_session(user) if user
+    remember_user(user) if user
   end
   
   def correct_case chassis
