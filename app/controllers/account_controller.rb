@@ -50,7 +50,7 @@ class AccountController < ApplicationController
   end
   
   def password_recovery
-    confirmation = Confirmation.find_by_number params[:id] #rescue redirect_to '/' and return
+    confirmation = Confirmation.find_by_number params[:id] rescue redirect_to '/' and return
     if confirmation
       unless confirmation.expired?
         user = confirmation.user
