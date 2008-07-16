@@ -51,14 +51,13 @@ class AccountController < ApplicationController
   end
   
   def password_recovery
-    confirmation = Confirmation.find_by_number params[:id] rescue redirect_to '/' and return
+    confirmation = Confirmation.find_by_number params[:id] #rescue redirect_to '/' and return
     if confirmation
       unless confirmation.expired?
         user = confirmation.user
-        cookies[:user_id] = {:value => user.id.to_s, :expires => 1.year.from_now}
+        cookies[:user_id] = {:value => user.secret_hash, :expires => 1.year.from_now}
         user_to_session user
         flash[:notice] = 'Please update your password'
-#        render :text => "this is your related_url : #{ confirmation.related_url }"
         redirect_to confirmation.related_url
       else
         flash[:notice] = 'Email expired. If you requested your password the email we sent you expires after 1 day.'
