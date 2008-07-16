@@ -53,12 +53,13 @@ class AccountController < ApplicationController
     confirmation = Confirmation.find_by_number params[:id] rescue redirect_to '/' and return
     if confirmation && !confirmation.expired?
       remember_user(confirmation.user)
-      flash[:notice] = "Logged in, <a href=\"#{ url_for :action => 'change_password', :id => confirmation.user }\">please update your password</a>"
-      redirect_to '/' and return
+      @edit_user = confirmation.user
+      render :action => 'change_password'
+    else
+      flash[:notice] = 'Email expired. If you requested your password the email we sent you expires after 1 day.'
+      redirect_to :action => 'forgot_password'
     end
 
-    flash[:notice] = 'Email expired. If you requested your password the email we sent you expires after 1 day.'
-    redirect_to :action => 'forgot_password'
   end
   
   def change_password
