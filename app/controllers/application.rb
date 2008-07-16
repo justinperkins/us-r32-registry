@@ -16,6 +16,11 @@ class ApplicationController < ActionController::Base
     sessions.destroy_all(['updated_at < ?', 20.minutes.ago])
   end
   
+  def remember_user(user)
+    cookies[:user_hash] = {:value => user.secret_hash, :expires => 1.year.from_now}
+    user_to_session user
+  end
+  
   def user_to_session(user)
     user = User.find_by_id(user) unless user.is_a? User
     if user

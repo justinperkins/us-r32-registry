@@ -15,8 +15,7 @@ class AccountController < ApplicationController
     case request.method
     when :post
       if user = User.authenticate(params[:user][:email], params[:user][:password])
-        cookies[:user_hash] = {:value => user.secret_hash, :expires => 1.year.from_now}
-        user_to_session user
+        remember_user(user)
         flash[:notice]  = "Login successful"
         redirect_to '/'
       else
@@ -55,8 +54,7 @@ class AccountController < ApplicationController
     if confirmation
       unless confirmation.expired?
         user = confirmation.user
-        cookies[:user_id] = {:value => user.secret_hash, :expires => 1.year.from_now}
-        user_to_session user
+        remember_user(user)
         flash[:notice] = 'Please update your password'
         redirect_to confirmation.related_url
       else
@@ -88,7 +86,7 @@ class AccountController < ApplicationController
         @create_user = User.new params[:user]
         
         if @create_user.save
-          remember_the_user @create_user
+          remember_user(@create_user)
           flash[:notice]  = "Signup successful"
           redirect_to :controller => 'r32s', :action => 'add'
         end
@@ -120,10 +118,6 @@ class AccountController < ApplicationController
   end
   
   private
-  def remember_the_user user
-    session[:user_id] = user.id
-  end
-  
   def set_current_user
     @user = User.find session[:user_id] if session[:user_id]
   end
