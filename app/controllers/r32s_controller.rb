@@ -37,6 +37,19 @@ class R32sController < ApplicationController
     @r32s = (@active_chassis ? R32.paginate_all_by_chassis(@active_chassis, :include => 'user', :order => "#{ @sort_by } #{ @sort_direction }", :page => @page ) : R32.paginate(:all, :include => 'user', :order => " #{ @sort_by } #{ @sort_direction }", :page => @page ))
   end
   
+  def only_canada
+    @page_title = "All R32s in Canada"
+    @page = safe_page( params[ :page ] )
+    @sort_by = safe_input( params[:sort_by], [ 'r32s.chassis', 'r32s.color', 'r32s.interior', 'r32s.edition_number', 'r32s.purchased_on', 'r32s.for_sale', 'r32s.preordered', 'users.first_name', 'users.city' ], 'r32s.created_at' )
+    @sort_direction = safe_input( params[:sort_direction], %w{ ASC DESC }, 'ASC' )
+
+    @all_r32s = R32.find_all_candadians
+    @most_recent_mkiv = R32.find :all, :include => 'user', :conditions => [ 'users.state IN (?) AND chassis = ?', User.canadian_provinces, 'mkiv' ], :limit => 1, :order => 'r32s.created_at DESC'
+    @most_recent_mkv = R32.find :all, :include => 'user', :conditions => [ 'users.state in (?) AND chassis = ?', User.canadian_provinces, 'mkv' ], :limit => 1, :order => 'r32s.created_at DESC'
+
+    @r32s = R32.paginate(:all, :include => 'user', :conditions => ['users.state IN (?)', User.canadian_provinces], :order => " #{ @sort_by } #{ @sort_direction }", :page => @page )
+  end
+  
   def atom
     @active_chassis = params[ :id ]
     if @active_chassis && %w{ mkiv mkv }.include?( @active_chassis )

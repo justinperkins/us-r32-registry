@@ -10,8 +10,8 @@
     <p><%= format_text entry.content %></p>
   </div>
   <% js = capture do %>
-    new Ajax.InPlaceEditor('entry_<%= entry.id %>_title', '<%= url_for({ :action => 'edit', :id => entry.id, :type => 'title' }) %>', {okText:'Save', loadTextURL:'<%= url_for({ :action => 'fetch_for_edit', :type => 'title', :id => entry.id }) %>', htmlResponse:true, textBeforeControls:' ', textBetweenControls:' ' });
-    new Ajax.InPlaceEditor('entry_<%= entry.id %>_content', '<%= url_for({ :action => 'edit', :id => entry.id, :type => 'content' }) %>', {okText:'Save', loadTextURL:'<%= url_for({ :action => 'fetch_for_edit', :type => 'content', :id => entry.id }) %>', htmlResponse:true, rows:10, textBeforeControls:' ', textBetweenControls:' ' });
+    new Ajax.InPlaceEditor('entry_<%= entry.id %>_title', '<%= url_for({ :action => 'edit', :id => entry.id, :type => 'title' }) %>', {okText:'Save', loadTextURL:'<%= url_for({ :action => 'fetch_for_edit', :type => 'title', :id => entry.id }) %>', htmlResponse:false, textBeforeControls:' ', textBetweenControls:' ' });
+    new Ajax.InPlaceEditor('entry_<%= entry.id %>_content', '<%= url_for({ :action => 'edit', :id => entry.id, :type => 'content' }) %>', {okText:'Save', loadTextURL:'<%= url_for({ :action => 'fetch_for_edit', :type => 'content', :id => entry.id }) %>', htmlResponse:false, rows:10, textBeforeControls:' ', textBetweenControls:' ' });
   <% end %>
   <%= javascript_tag js if entry.r32.user_can_alter_this(@user) %>
 </div>

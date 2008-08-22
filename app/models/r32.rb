@@ -81,6 +81,10 @@ class R32 < ActiveRecord::Base
       collection
     end
     
+    def find_all_candadians
+      R32.find(:all, :conditions => ['users.state in (?)', User.canadian_provinces], :include => 'user')
+    end
+    
     def color_stats_for_chassis chassis, collection
       stats = {}
       collection = collection.collect { |r| r.chassis == chassis ? r : nil }

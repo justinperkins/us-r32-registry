@@ -127,7 +127,7 @@ var Map = {
     if (GBrowserIsCompatible()) {
       this.map = new GMap2($('map'));
       this.map.addControl(new GSmallMapControl());
-      this.map.setCenter(new GLatLng(37.857507,-95.208984), 4);
+      this.map.setCenter(new GLatLng(37.857507,-95.208984), 3);
       this.geocoder = new GClientGeocoder();
       Event.observe(window, 'unload', function(){ GUnload(); });
       

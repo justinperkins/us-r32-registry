@@ -8,7 +8,7 @@ module R32sHelper
   
   def url_for_sorting( active_sort, sort_by ,sort_direction )
     { :controller => '/r32s', 
-      :action => 'index', 
+      :action => @controller.action_name, 
       :chassis => ( @active_chassis ? @active_chassis : nil ),
       :sort_by => sort_by, 
       :sort_direction => ( active_sort == sort_by ? reverse_of_sort_direction( sort_direction ) : sort_direction )

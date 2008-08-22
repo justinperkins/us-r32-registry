@@ -21,8 +21,8 @@
 <% else -%>
   <% if @r32s && !@r32s.blank? -%>
     <div class="list_meta">
-      <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkiv.first } if @most_recent_mkiv %>
-      <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkv.first } if @most_recent_mkv %>
+      <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkiv.first } if @most_recent_mkiv && !@most_recent_mkv.blank?%>
+      <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkv.first } if @most_recent_mkv && !@most_recent_mkv.blank? %>
       <% %w{ mkiv mkv }.each do |active_chassis| -%>
         <% stats, r32s_for_chassis = R32.color_stats_for_chassis(active_chassis, @all_r32s) -%>
         <p><strong><%= r32s_for_chassis.size %></strong> <%= correct_case active_chassis %> R32s are registered with us.</p>
@@ -33,6 +33,7 @@
         </p>
       <% end -%>
       <p class="legend"><span class="preordered">Blue rows</span> are preorders and <span class="for_sale">red rows</span> are for sale</p>
+      <p><%= link_to 'Want to just see Canadian R32s?', :controller => 'r32s', :action => 'only_canada' %></p>
     </div>
     <%= render :partial => 'list' %>
     <%= will_paginate @r32s %>

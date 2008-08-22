@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   before_save :update_latitude_and_longitude
   after_create :build_secret_hash
   
+  @@canadian_provinces = %w{AB BC MB NB NL NS ON PE QC SK}
+  cattr_reader :canadian_provinces
+  
   def has_r32?
     self.r32s.count > 0
   end
@@ -63,6 +66,10 @@ class User < ActiveRecord::Base
   def build_secret_hash
     self.secret_hash = Digest::SHA1.hexdigest("#{ GLOBAL_SALT }-#{ self.id }")
     self.save
+  end
+  
+  def canadian?
+    User.canadian_provinces.include? self.state
   end
   
   protected

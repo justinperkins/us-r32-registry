@@ -2,7 +2,30 @@
 # The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
 
 module AccountHelper
-  def states
+  def states_and_provinces
+    c = Struct.new(:name, :states)
+    s = Struct.new(:name, :abbreviation)
+    canada = c.new('Canada', canada_provinces.collect { |province| s.new(province[0], province[1]) })
+    us = c.new('United States', us_states.collect { |state| s.new(state[0], state[1]) })
+    [us, canada]
+  end
+  
+  def canada_provinces
+    [
+      %w{Alberta AB},
+      ['British Columbia', 'BC'],
+      %w{Manitoba MB},
+      ['New Brunswick', 'NB'],
+      ['Newfoundland and Labrador', 'NL'],
+      ['Nova Scotia', 'NS'],
+      %w{Ontario ON},
+      ['Prince Edward Island', 'PE'],
+      %w{Quebec QC},
+      %w{Saskatchewan SK}
+    ]
+  end
+  
+  def us_states
     [
       %w{Alabama AL },
       %w{Alabama	AL },
