@@ -179,7 +179,7 @@ class R32 < ActiveRecord::Base
       :owner => self.owner, 
       :ownerID => self.user.id, 
       :latitude => self.user.latitude.to_f, 
-      :longitude => self.user.longitude.to_f + rand(0.10) - rand(0.10)
+      :longitude => self.user.longitude.to_f
     }
   end
   

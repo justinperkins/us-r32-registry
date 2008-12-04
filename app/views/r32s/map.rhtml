@@ -14,7 +14,7 @@
 <div id="map"></div>
 <%= javascript_tag update_page { |page|
   @r32s.each do |r|
-    page.call 'Map.addR32', r.to_js_r32
+    page.map.add_r32 r.to_js_r32 unless r.user.missing_coordinates?
   end
   page.map.initialize
 } %>

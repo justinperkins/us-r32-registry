@@ -1,7 +1,7 @@
 # Copyright 2007-2008 Justin Perkins
 # The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
 
-RAILS_GEM_VERSION = '1.2.3'
+RAILS_GEM_VERSION = '1.2.6'
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -54,4 +54,8 @@ GLOBAL_SALT = 'salty goodness' unless defined? GLOBAL_SALT
 if RAILS_ENV != "production" 
   railsrc = "#{RAILS_ROOT}/.railsrc"
   load(railsrc) if File.exist?(railsrc)
+end
+
+HoptoadNotifier.configure do |config|
+  config.api_key = '10a46a8b1fe413b85dd2a1c5b2d9401a'
 end

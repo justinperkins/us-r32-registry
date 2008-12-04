@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :r32s
   has_many :confirmations
   before_create :crypt_password
-  before_save :update_latitude_and_longitude
+  before_save :update_coordinates
   after_create :build_secret_hash
   
   @@canadian_provinces = %w{AB BC MB NB NL NS ON PE QC SK}
@@ -72,6 +72,23 @@ class User < ActiveRecord::Base
     User.canadian_provinces.include? self.state
   end
   
+  def missing_coordinates?
+    self.latitude.to_i == 0 || self.longitude.to_i == 0
+  end
+  
+  def update_coordinates
+    self.city.strip! # b/c users fat finger stuff
+
+    response = Net::HTTP.get 'maps.google.com', map_coordinate_path
+    if response
+      response = response.split ','
+      if !response.empty? && response[0] == '200' && response[2] != '0' && response[3] != '0'
+        self.latitude = response[2]
+        self.longitude = response[3]
+      end
+    end
+  end
+
   protected
 
   def self.sha1(pass)
@@ -81,21 +98,6 @@ class User < ActiveRecord::Base
   
   def crypt_password
     write_attribute("password", self.class.sha1(password))
-  end
-  
-  def update_latitude_and_longitude
-    
-    # reset the lat/long, to cover any failure conditions below
-    self.latitude = self.longitude = 0
-    
-    response = Net::HTTP.get 'maps.google.com', map_coordinate_path
-    if response
-      response = response.split ','
-      if !response.empty? && response[0] == '200'
-        self.latitude = response[2]
-        self.longitude = response[3]
-      end
-    end
   end
   
   private

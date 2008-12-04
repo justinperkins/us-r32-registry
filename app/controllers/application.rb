@@ -5,6 +5,8 @@ require_dependency "login_system"
 
 class ApplicationController < ActionController::Base
   include LoginSystem
+  include HoptoadNotifier::Catcher
+
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_usr32registry.org_session_id'
   
@@ -51,8 +53,13 @@ class ApplicationController < ActionController::Base
     color.downcase == 'custom' ? 'Custom' : color.upcase
   end
 
-  def r32_to_s r32
-    "#{abbreviated_color @r32.color} #{correct_case @r32.chassis} R32, Owner: #{@r32.owner}"
+  def r32_to_s(r32, show_owner = true)
+    str = "#{abbreviated_color r32.color} #{correct_case r32.chassis}"
+    if r32.totaled?
+      "This #{ str } has been totaled"
+    elsif show_owner
+      "#{ str }, Owner: #{r32.owner }" 
+    end
   end
 
   def author_is_viewing?

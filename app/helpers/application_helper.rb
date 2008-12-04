@@ -37,7 +37,12 @@ module ApplicationHelper
   end
   
   def r32_to_s(r32, show_owner = true)
-    "#{abbreviated_color r32.color} #{correct_case r32.chassis} R32#{ ", Owner: #{r32.owner}" if show_owner}"
+    str = "#{abbreviated_color r32.color} #{correct_case r32.chassis}"
+    if r32.totaled?
+      "This #{ str } has been totaled"
+    elsif show_owner
+      "#{ str }, Owner: #{r32.owner }" 
+    end
   end
   
   def abbreviated_color(color)

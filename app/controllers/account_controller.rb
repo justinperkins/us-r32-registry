@@ -115,7 +115,29 @@ class AccountController < ApplicationController
     end
   end
   
+  def check_location
+    valid = is_valid_city_state(params[:city], params[:state])
+    respond_to do |format|
+      format.html { render :text => (valid ? 'valid' : 'invalid') }
+      format.js do
+        render :update do |page|
+          page.replace_html 'account-message', (valid ? 'City/state verified, submitting ...' : 'The city/state you provided could not be mapped. This means you won\'t show up on the R32 map. If that is OK with you, please click the submit button, otherwise please check the location and try again.')
+          page.account.location_checked(valid ? true : false)
+        end
+      end
+    end
+  end
+  
   private
+  def is_valid_city_state(city, state)
+    return unless city && state
+    response = Net::HTTP.get 'maps.google.com', "/maps/geo?q=#{ CGI.escape( city ) },%20#{ CGI.escape( state ) }&output=csv&key=#{ GOOGLE_MAPS_API_KEY }"
+    if response
+      response = response.split(',')
+      return response if !response.empty? && response[0] == '200' && response[2] != '0' && response[3] != '0'
+    end
+  end
+  
   def set_current_user
     @user = User.find session[:user_id] if session[:user_id]
   end

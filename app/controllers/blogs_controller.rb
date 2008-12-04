@@ -20,6 +20,7 @@ class BlogsController < ApplicationController
   def atom_for_all
     @page_title = "All Owner R32 logs"
     @entries = Post.find :all, :include => 'r32', :limit => 500, :order => 'posts.updated_at DESC'
+    @entries.delete_if { |e| !e.r32 }
     render :layout => false
   end
   

@@ -1,6 +1,26 @@
 // Copyright 2007-2008 Justin Perkins
 // The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/
 
+var Account = {
+  resetCheck: function(){
+    this.checked = false;
+  },
+  checkLocation: function(formControl){
+    if (this.checked) return true; // we already checked this city/state, just let the form go
+    this.formControl = $(formControl);
+    this.formControl.down('p.btn em').update('Checking city/state so it will show up on the R32 map, please wait ...');
+    var city = $F('user_city'), state = $F('user_state');
+    new Ajax.Request('/account/check_location', {method:'get', parameters:{city:city, state:state}});
+    
+    this.checked = true; // so we can keep track of whether we checked this city/state already
+    return false;
+  },
+  locationChecked: function(valid){
+    if (valid) this.formControl.submit();
+    else this.checked = false;
+  }
+};
+
 var r32 = {
   possibleChassis: [ 'mkiv', 'mkv' ],
   prepare: function(editing){
@@ -12,7 +32,7 @@ var r32 = {
     $('r32_optional').show();
     this.readyChassisFields(chassis);
     
-    if ($('r32_preordered') && $('r32_preordered').checked) this.preorderedClicked(null, true)
+    if ($('r32_preordered') && $('r32_preordered').checked) this.preorderedClicked(null, true);
 
     if (!this.editing){
       Event.observe('r32_chassis', 'change', this.chassisSwitched.bindAsEventListener(this));
@@ -48,7 +68,7 @@ var r32 = {
         this.safeCall('r32_optional', 'blindUp');
       }
 
-      Form.disableChildFormElements('r32_edition_number_p')
+      Form.disableChildFormElements('r32_edition_number_p');
       Form.disableChildFormElements('r32_vin_p');
       Form.disableChildFormElements('r32_purchased_on_p');
       Form.disableChildFormElements('r32_optional');
@@ -72,7 +92,7 @@ var r32 = {
     Form.enable('r32_form');
     
     this.possibleChassis.without(chassis).each(function(chassis){
-      $$('fieldset p.' + chassis).invoke('hide').each(function(p){ Form.disableChildFormElements(p) });
+      $$('fieldset p.' + chassis).invoke('hide').each(function(p){ Form.disableChildFormElements(p); });
     });
   },
   showPhoto: function(chassis, color){
@@ -136,10 +156,20 @@ var Map = {
   },
   drawR32s: function(){
     var icon = new GIcon( G_DEFAULT_ICON );
+    var usedCityStates = $H();
     this.r32s.each( function( r32 ){
-      var point = new GLatLng( r32.latitude, r32.longitude );
-      icon.image = '/images/map/icons/' + r32.color.toString().toLowerCase() + '.png';
-      this.map.addOverlay( this._buildOverlay( new GMarker( point, { icon: icon } ), r32 ) );
+      var locationPattern = r32.city.toLowerCase() + '-' + r32.state.toLowerCase(), cityMapped = usedCityStates.get(locationPattern);
+      var lati = r32.latitude, longi = r32.longitude;
+      if (cityMapped){
+        lati = lati + (0.02 * cityMapped);
+      }
+      var point = new GLatLng( lati, longi ), marker;
+      icon.image = '/images/map/icons/' + r32.color.toLowerCase() + '.png';
+      marker = new GMarker( point, { icon: icon} );
+      this.map.addOverlay( this._buildOverlay( marker, r32 ) );
+
+      if (cityMapped) usedCityStates.set(locationPattern, cityMapped + 1);
+      else usedCityStates.set(locationPattern, 1);
     }.bind( this ));
   },
   addR32: function( r32 ){
@@ -154,7 +184,7 @@ var Map = {
     html += '<br />Owned by <a href="/account/show/' + r32.ownerID + '">' + r32.owner + '</a>';
     html += '</p>';
     GEvent.addListener(marker, 'click', function(){
-        marker.openInfoWindowHtml( html );
+      marker.openInfoWindowHtml( html );
     });
 	  
     return marker;
@@ -181,7 +211,7 @@ Form.enableChildFormElements = function(node){
     element = node.getElementsByTagName('input');
     if (element && element.length > 0) element[0].disabled = false;
   }
-}
+};
 Form.disableChildFormElements = function(node){
   node = $(node);
   if (node){
@@ -190,4 +220,4 @@ Form.disableChildFormElements = function(node){
     element = node.getElementsByTagName('input');
     if (element && element.length > 0) element[0].disabled = true;
   }
-}
+};

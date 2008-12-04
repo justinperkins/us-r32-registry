@@ -11,12 +11,12 @@
   <p><label for="user_email">Email:</label>
     <%= f.text_field "email", :class => 'text' %>
     <em class="highlight"><%= form.errors[:email] %></em></p>
-  <p><label for="user_email">City:</label>
-    <%= f.text_field "city", :class => 'text' %>
+  <p><label for="user_city">City:</label>
+    <%= f.text_field "city", :class => 'text', :onkeypress => 'Account.resetCheck()' %>
     <em class="highlight"><%= form.errors[:city] %></em>
     <em>so we can put you on the U.S. map, but you MUST use a U.S. city</em></p>
   <p><label for="user_state">State/Province:</label>
-    <%= select_tag "user[state]", option_groups_from_collection_for_select(states_and_provinces, :states, :name, :abbreviation, :name, form.state), :id => 'user_state' %>
+    <%= select_tag "user[state]", option_groups_from_collection_for_select(states_and_provinces, :states, :name, :abbreviation, :name, form.state), :id => 'user_state', :onchange => 'Account.resetCheck()' %>
     <em class="highlight"><%= form.errors[:state] %></em>
     <em>so we can put you on the map</em></p>
   <% if @controller.action_name == 'create' -%>
@@ -28,7 +28,9 @@
       <em class="highlight"><%= form.errors[:password_confirmation] %></em></p>
   <% end -%>
   <p class="btn"><%= submit_tag "#{@controller.action_name == 'create' ? 'Create your account &#187;' : 'Save changes &#187;'}", :class => 'btn' %>
-    <%= link_to 'cancel edit', :action => 'show', :id => form.id if @controller.action_name == 'edit' %></p>
+    <%= link_to 'cancel edit', :action => 'show', :id => form.id if @controller.action_name == 'edit' %>
+    <em id="account-message" class="highlight" style="display:block;margin:5px 0 0;"></em>
+  </p>
 </fieldset>
 
 <fieldset>

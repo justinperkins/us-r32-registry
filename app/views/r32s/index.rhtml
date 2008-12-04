@@ -12,7 +12,7 @@
           <strong><%= v %></strong> <%= abbreviated_color k %>,
         <% end -%>
       </p>
-      <p class="legend"><span class="preordered">Blue rows</span> are preorders and <span class="for_sale">red rows</span> are for sale</p>
+      <%= r32_listing_legend %>
     </div>
   <% end -%>
   <%= render :partial => 'list' %>
@@ -32,8 +32,10 @@
           <% end -%>
         </p>
       <% end -%>
-      <p class="legend"><span class="preordered">Blue rows</span> are preorders and <span class="for_sale">red rows</span> are for sale</p>
-      <p><%= link_to 'Want to just see Canadian R32s?', :controller => 'r32s', :action => 'only_canada' %></p>
+      <%= r32_listing_legend %>
+      <p><%= link_to 'Want to just see Canadian R32s', :controller => 'r32s', :action => 'only_canada' %>
+        or <%= link_to 'totaled R32s', :controller => 'r32s', :action => 'totaled' %>?
+      </p>
     </div>
     <%= render :partial => 'list' %>
     <%= will_paginate @r32s %>
