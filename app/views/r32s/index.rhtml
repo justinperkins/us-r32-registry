@@ -4,7 +4,9 @@
 <h2><%= @page_title %></h2>
 <% if @active_chassis -%>
   <% if @r32s.size > 0 -%>
-    <div class="list_meta">
+    <%= render :partial => 'list' %>
+    <%= will_paginate @r32s %>
+    <div class="list_meta clearfix-left">
       <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_for_chassis.first } if @most_recent_for_chassis %>
       <p><strong><%= @all_r32s.size %></strong> <%= correct_case @active_chassis %> R32s are registered with us.</p>
       <p><em><%= correct_case @active_chassis %> Stats</em>: 
@@ -12,15 +14,15 @@
           <strong><%= v %></strong> <%= abbreviated_color k %>,
         <% end -%>
       </p>
-      <%= r32_listing_legend %>
     </div>
+  <% else -%>
+    <h3>No R32s found</h3>
   <% end -%>
-  <%= render :partial => 'list' %>
-  <%= will_paginate @r32s %>
-  <div class="clearfix-left"></div>
 <% else -%>
   <% if @r32s && !@r32s.blank? -%>
-    <div class="list_meta">
+    <%= render :partial => 'list' %>
+    <%= will_paginate @r32s %>
+    <div class="list_meta clearfix-left">
       <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkiv.first } if @most_recent_mkiv && !@most_recent_mkv.blank?%>
       <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkv.first } if @most_recent_mkv && !@most_recent_mkv.blank? %>
       <% %w{ mkiv mkv }.each do |active_chassis| -%>
@@ -32,14 +34,10 @@
           <% end -%>
         </p>
       <% end -%>
-      <%= r32_listing_legend %>
       <p><%= link_to 'Want to just see Canadian R32s', :controller => 'r32s', :action => 'only_canada' %>
         or <%= link_to 'totaled R32s', :controller => 'r32s', :action => 'totaled' %>?
       </p>
     </div>
-    <%= render :partial => 'list' %>
-    <%= will_paginate @r32s %>
-    <div class="clearfix-left"></div>
   <% else -%>
     <h3>There are no R32s listed</h3>
   <% end -%>

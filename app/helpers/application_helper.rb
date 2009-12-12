@@ -36,12 +36,15 @@ module ApplicationHelper
     end
   end
   
-  def r32_to_s(r32, show_owner = true)
+  def r32_to_s(r32, options = {})
+    options.reverse_merge!(:show_owner => true, :page_title => false)
     str = "#{abbreviated_color r32.color} #{correct_case r32.chassis}"
-    if r32.totaled?
+    if r32.totaled? && !options[:page_title]
       "This #{ str } has been totaled"
-    elsif show_owner
+    elsif options[:show_owner]
       "#{ str }, Owner: #{r32.owner }" 
+    else
+      str
     end
   end
   
@@ -57,11 +60,20 @@ module ApplicationHelper
     r32 ||= @r32 if @r32
     @user && r32 && r32.user == @user
   end
+  alias owner_is_viewing? author_is_viewing?
   
   def mail_to_admin
     @admin_user ||= User.find_an_admin
     mail_to @admin_user.email, @admin_user.email
   end
   
-  alias owner_is_viewing? author_is_viewing?
+  def wants_adverts?
+    @controller.controller_name != 'account' &&
+    (@controller.controller_name == 'r32s' && !%w{ add edit }.include?(@controller.action_name))
+  end
+  
+  def wrap_main?
+    @controller.controller_name != 'blogs' &&
+    (@controller.controller_name == 'r32s' && !%w{ add edit show }.include?(@controller.action_name))
+  end
 end

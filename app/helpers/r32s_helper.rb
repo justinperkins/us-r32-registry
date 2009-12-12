@@ -21,9 +21,7 @@ module R32sHelper
   
   def r32_css_classes(r32)
     klass = []
-    klass << 'preordered' if r32.preordered?
-    klass << 'for_sale' if r32.for_sale?
-    klass << 'totaled' if r32.totaled?
+    klass << r32.vehicle_state || 'owned'
     klass.join(' ')
   end
   

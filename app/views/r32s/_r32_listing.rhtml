@@ -6,11 +6,10 @@
   <td><%= abbreviated_color r32_listing.color %></td>
   <td><%= r32_listing.interior.titleize %></td>
   <% if @active_chassis && R32.chassis_has_edition_number( @active_chassis ) -%>
-    <td><%= r32_listing.mkv? && !r32_listing.preordered ? r32_listing.edition_number : 'n/a' %></td>
+    <td><%= r32_listing.mkv? && !r32_listing.preordered? ? r32_listing.edition_number : 'n/a' %></td>
   <% end -%>
-  <td><%= r32_listing.preordered ? 'n/a' : format_date(r32_listing.purchased_on) %></td>
-  <td><%= r32_listing.for_sale ? 'Yes!' : 'NFS' %></td>
-  <td><%= r32_listing.preordered ? 'Preordered' : 'Owned' %></td>
+  <td><%= r32_listing.preordered? ? 'n/a' : format_date(r32_listing.purchased_on) %></td>
+  <td><%= r32_listing.vehicle_state.titleize %></td>
   <td><%= link_to h("#{r32_listing.owner}"), :controller => 'account', :action => 'show', :id => r32_listing.user.id %></td>
   <td><%= "#{ truncate( r32_listing.user.city, 30 ) }, #{ truncate( r32_listing.user.state, 2 ) }" %></td>
   <td><%= link_to 'View', :controller => 'blogs', :action => 'show', :id => r32_listing.id %></td>

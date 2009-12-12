@@ -2,6 +2,7 @@
 <%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
 
 <h2><%= @page_title %></h2>
+<%= render :partial => 'list' %>
 <div class="list_meta">
   <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkiv.first } if @most_recent_mkiv && !@most_recent_mkiv.blank? %>
   <%= render :partial => 'most_recent', :locals => { :latest_r => @most_recent_mkv.first } if @most_recent_mkv && !@most_recent_mkv.blank? %>
@@ -16,4 +17,3 @@
   <% end -%>
   <%= r32_listing_legend %>
 </div>
-<%= render :partial => 'list' %>

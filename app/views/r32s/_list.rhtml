@@ -10,8 +10,7 @@
       <th><%= link_to "Edition Number (MkV) #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.edition_number' ) }", url_for_sorting( @sort_by, 'r32s.edition_number', @sort_direction) %></th>
     <% end -%>
     <th><%= link_to "Purchased #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.purchased_on' ) }", url_for_sorting( @sort_by, 'r32s.purchased_on', @sort_direction) %></th>
-    <th><%= link_to "For Sale? #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.for_sale' ) }", url_for_sorting( @sort_by, 'r32s.for_sale', @sort_direction) %></th>
-    <th><%= link_to "Preordered/Owned #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.preordered' ) }", url_for_sorting( @sort_by, 'r32s.preordered', @sort_direction) %></th>
+    <th><%= link_to "Vehicle State #{ sort_identifier_for_header( @sort_by, @sort_direction, 'r32s.state' ) }", url_for_sorting( @sort_by, 'r32s.state', @sort_direction) %></th>
     <th><%= link_to "Owner #{ sort_identifier_for_header( @sort_by, @sort_direction, 'users.first_name' ) }", url_for_sorting( @sort_by, 'users.first_name', @sort_direction) %></td>
     <th><%= link_to "Location #{ sort_identifier_for_header( @sort_by, @sort_direction, 'users.city' ) }", url_for_sorting( @sort_by, 'users.city', @sort_direction) %></td>
     <th>R32 Log</td>
@@ -22,4 +21,5 @@
   </thead>
   <%= render :partial => 'r32_listing', :collection => @r32s %>
 </table>
+<%= r32_listing_legend %>
 <div class="clearfix-both"></div>

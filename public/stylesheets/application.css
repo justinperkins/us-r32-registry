@@ -119,6 +119,16 @@ body.blog #header img{
   padding:10px;
   font-size:1.2em;
 }
+/* some pages have a div wrapper around the primary content, we can use it for extra CSS */
+#main{ max-width:1000px; }
+#sidebar{
+  float:right;
+  width:270px;
+  margin:0;
+}
+#adverts iframe{ margin:0 10px 10px 0; }
+#adverts p{ text-align:center; margin:0; padding:0; }
+
 body.totaled #content{ background:#000 url(../images/skull_and_crossbones.jpg) no-repeat top right; }
 #navigation{
   list-style:none;
@@ -158,12 +168,9 @@ body.totaled #content{ background:#000 url(../images/skull_and_crossbones.jpg) n
   font-size:1.8em;
   margin:0 0 10px;
 }
-#content h2{
-  margin:0 0 10px;
-}
-#content p{
-  margin:5px 0;
-}
+#content h2{ margin:0 0 10px; }
+#content p{ margin:10px 0; }
+#content dl{ margin:10px 0 ; }
 #content fieldset{
   padding:10px;
   margin:5px 0;
@@ -228,22 +235,17 @@ body.totaled #content{ background:#000 url(../images/skull_and_crossbones.jpg) n
 }
 body.blog #content div.r32, #content div.list_meta{
   border:0;
-  float:right;
-  width:300px;
   border:1px solid #aaa;
   background:#fff;
   padding:5px;
-  margin:0 0 10px 10px;
+  margin:0 0 10px;
 }
-#content div.list_meta{
-  width:20%;
-  min-width:100px;
-  max-width:300px;
-  text-align:right;
+body.blog #content div.r32{
+  float:right;
+  width:300px;
+  margin:0 0 0 20px;
 }
 #content table.r32s{
-  float:left;
-  width:65%;
 }
 #content table.r32s thead{
   background:#fff;
@@ -261,9 +263,10 @@ body.blog #content div.r32, #content div.list_meta{
 #content table.r32s tr.r32_1{
   background:#ddd;
 }
-#content table.r32s tr.preordered, #content p.legend{
-  padding:10px 0 0;
+#content p.legend{
+  padding:10px 0;
 }
+#content p.legend span{ padding:2px 5px; }
 #content table.r32s tr.preordered, #content p.legend span.preordered{
   background:#75A0D1;
 }
@@ -274,6 +277,8 @@ body.blog #content div.r32, #content div.list_meta{
   background:#000;
   color:#fff;
 }
+#content table.r32s tr.exported, #content table.r32s tr.exported a{ color:#888; }
+#content table.r32s tr.sold, #content table.r32s tr.sold a{ color:#aaa; }
 #content h3.blog_link{
   margin:5px 0;
 }
@@ -324,19 +329,14 @@ body.blog #content p.help{
   font-size:.95em;
 }
 div.pagination{
-  width:65%;
-  display:block;
-  text-align:center;
+  text-align:left;
   font-size:1.6em;
-  padding:20px 0 0;
+  margin:10px 0;
 }
 div.pagination span, div.pagination a{
-  display:block;
-  float:left;
   padding:3px;
   border:1px solid #ccc;
   background:#fff;
-  margin:0 2px 0 0;
   text-decoration:none;
 }
 div.pagination span.disabled{}
@@ -346,6 +346,7 @@ div.pagination a:hover{
   border-color:#999;
   background:#ddd;
 }
+#main dl{ margin:10px 0; }
 
 /* footer styles
 ********************************************************************************************/

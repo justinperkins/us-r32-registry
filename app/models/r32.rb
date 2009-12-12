@@ -23,11 +23,11 @@ class R32 < ActiveRecord::Base
 =end
 
   validates_presence_of [ :chassis, :interior, :color ], :message => 'Required'
-  validates_presence_of [ :edition_number ], :if => lambda { |r32| r32.chassis == 'mkv' && !r32.preordered }, :message => 'Required'
-  validates_presence_of [ :vin, :purchased_on ], :if => lambda { |r32| !r32.preordered }, :message => 'Required'
+  validates_presence_of [ :edition_number ], :if => lambda { |r32| r32.chassis == 'mkv' && !r32.preordered? }, :message => 'Required'
+  validates_presence_of [ :vin, :purchased_on ], :if => lambda { |r32| !r32.preordered? }, :message => 'Required'
   validates_length_of [ :vin ], :is => 17, :if => lambda { |r32| !r32.vin.blank? }, :message => 'Not a vin'
-  validates_uniqueness_of [ :vin ], :if => lambda { |r32| !r32.preordered }, :message => 'Already registered!'
-  validates_uniqueness_of [ :edition_number ], :if => lambda { |r32| r32.chassis == 'mkv' && !r32.preordered && !r32.edition_number.blank? }, :message => 'Already registered, use VIN to claim'
+  validates_uniqueness_of [ :vin ], :if => lambda { |r32| !r32.preordered? }, :message => 'Already registered!'
+  validates_uniqueness_of [ :edition_number ], :if => lambda { |r32| r32.chassis == 'mkv' && !r32.preordered? && !r32.edition_number.blank? }, :message => 'Already registered, use VIN to claim'
   validates_format_of [ :picture_url ], :with => /^http:\/\//, :if => lambda { |r32| !r32.picture_url.blank? }, :message => 'Must begin with http://'
   validate :purchased_on_is_valid
 
@@ -59,6 +59,28 @@ class R32 < ActiveRecord::Base
     when 'mkiv' then 2003
     when 'mkv' then 2007
     end
+  end
+
+  # expose preferences with easy to use methods to similate real attributes
+  cattr_reader :optional_states
+  @@optional_states = %w{ preordered for_sale sold totaled exported }
+  @@optional_states.each do |vehicle_state|
+    class_eval <<-end_eval
+      def #{ vehicle_state }?
+        self.state == '#{ vehicle_state }'
+      end
+      def #{ vehicle_state }=(value)
+        self.state = (value ? '#{ vehicle_state }' : nil)
+      end
+      
+      def self.all_#{ vehicle_state }(options = {})
+        self.find_all_by_state('#{ vehicle_state }', options)
+      end
+    end_eval
+  end
+  
+  def vehicle_state
+    (self.state || 'owned')
   end
   
   class << self
@@ -175,7 +197,7 @@ class R32 < ActiveRecord::Base
       :city => self.user.city, 
       :state => self.user.state, 
       :purchasedOn => ( self.purchased_on ? self.purchased_on.strftime( '%m/%d/%Y' ) : nil ), 
-      :preordered => self.preordered, 
+      :preordered => self.preordered?, 
       :owner => self.owner, 
       :ownerID => self.user.id, 
       :latitude => self.user.latitude.to_f, 

@@ -20,7 +20,7 @@ xml.feed "version" => "0.3", "xml:lang"=>"en-US", "xmlns"=>"http://purl.org/atom
 
         xml.issued e.created_at.xmlschema
         xml.modified e.updated_at.xmlschema
-        xml.title h( "#{ e.title } (#{ r32_to_s e.r32 })" )
+        xml.title h( "#{ e.title } (#{ r32_to_s e.r32, :page_title => true })" )
 
         xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for( :controller => '/blogs', :action => 'show', :id => e.r32.id, :only_path => false )
         content = format_text e.content

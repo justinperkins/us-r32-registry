@@ -3,6 +3,14 @@
 
 class AboutController < ApplicationController
 
+  def index
+    @page_title = "Let's Get Meta!"
+  end
+  
+  def adverts
+    @page_title = "You've got to feed the monkey"
+  end
+  
   def feeds
     @page_title = 'RSS Feeds for your needs'
   end

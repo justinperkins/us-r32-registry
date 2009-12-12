@@ -1,0 +1,28 @@
+<%# Copyright 2007-2008 Justin Perkins %>
+<%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
+<div id="sidebar">
+  <% if wants_adverts? %>
+    <div id="adverts">
+      <%
+      ads = [
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=0837613175&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=B000OQ4W18&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=1845840224&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=1566913101&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=1899870261&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=0837601614&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=1583881581&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=091305612X&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=1861265093&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=1855206749&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+        '<iframe src="http://rcm.amazon.com/e/cm?t=enjoybeing-20&o=1&p=8&l=as1&asins=1845840208&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=506CB3&bc1=000000&bg1=EBEBEB&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>'
+      ]
+      start = rand(ads.size)
+      items = ads.slice(start, 4)
+      (0..(4-items.size-1)).each { |i| items << ads[i] } if items.size != 4
+      %>
+      <%= items.join("\n") %>
+      <p><%= link_to 'Why advertisements?', :controller => 'about', :action => 'adverts' %></p>
+    </div>
+  <% end %>
+</div>

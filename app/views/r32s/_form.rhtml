@@ -64,15 +64,8 @@
     <%= f.text_field "mileage", :class => 'text' %>
     <em class="highlight"><%= @r32.errors[:mileage] %></em>
   </p>
-  <p class="check"><label for="r32_totaled">Totaled:</label>
-    <%= f.check_box "totaled" %>
-    <em class="highlight"><%= @r32.errors[:totaled] %></em>
-    <em>please check this box if this R32 has been totaled in an accident</em>
-  </p>
-  <p class="check"><label for="r32_for_sale">For sale:</label>
-    <%= f.check_box "for_sale" %>
-    <em class="highlight"><%= @r32.errors[:for_sale] %></em>
-    <em>if you mark your car as "for sale", be sure to put your contact info in the notes box below</em>
+  <p><label for="r32_state">Vehicle State:</label>
+    <%= f.select 'state', R32.optional_states.insert(0, 'owned').collect { |s| [s.titleize, s]}, :selected => @r32.vehicle_state %>
   </p>
   <p><label for="r32_notes">Notes:</label>
     <%= f.text_area "notes" %>

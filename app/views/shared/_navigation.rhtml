@@ -4,22 +4,23 @@
 <% @user ||= User.find(session[:user_id]) if session[:user_id] -%>
 <ul id="navigation">
   <% unless blog_mode? -%>
-    <% if @user -%>
+    <% if @user && !@user.new_record? -%>
       <li><%= link_to 'Your Profile', :controller => 'account', :action => 'show', :id => @user.id %></li>
       <li><%= link_to 'Your R32 Logs', :controller => 'blogs', :action => 'mine' %></li>
+      <li><%= link_to 'All Owner Logs', :controller => 'blogs' %></li>
     <% else -%>
       <li><%= link_to 'Login', :controller => 'account', :action => 'login' %></li>
       <li><%= link_to 'Create an Account', :controller => 'account', :action => 'create' %></li>
+      <li><%= link_to 'Owner Logs', :controller => 'blogs' %></li>
     <% end -%>
     <li><%= link_to 'All R32s', :controller => 'r32s' %></li>
     <li><%= link_to 'MkIV R32s', :controller => 'r32s', :action => 'index', :chassis => 'mkiv' %></li>
     <li><%= link_to 'MkV R32s', :controller => 'r32s', :action => 'index', :chassis => 'mkv' %></li>
     <li><%= link_to 'R32s For Sale', :controller => 'r32s', :action => 'for_sale' %></li>
     <li><%= link_to 'R32s on a Map', :controller => 'r32s', :action => 'map' %></li>
-    <li><%= link_to 'Owner Logs', :controller => 'blogs' %></li>
     <li><%= link_to 'Add Your R32', :controller => 'r32s', :action => 'add' %></li>
     <li><%= link_to 'About the R32', :controller => 'r32s', :action => 'about' %></li>
-    <% if @user -%>
+    <% if @user && !@user.new_record? -%>
       <li><%= link_to 'Logout', :controller => 'account', :action => 'logout' %></li>
     <% end -%>
   <% else -%>

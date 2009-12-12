@@ -21,8 +21,16 @@
     <div id="content">
       <%= render :partial => 'shared/navigation' %>
       <%= render :partial => 'shared/message' unless Time.now > ( Time.parse( '10/1/2007' ) + 5.days ) %>
+      <%= render :partial => 'shared/sidebar' %>
       <%= "<h3 class=\"notice\">#{flash[:notice]}</h3>" if flash[:notice] %>
-      <%= yield  %>
+      <% if wrap_main? %>
+        <div id="main">
+          <%= yield %>
+        </div>
+      <% else %>
+        <%= yield  %>
+      <% end %>
+      <div class="clearfix-both"></div>
     </div>
     <%= render :partial => 'shared/footer' %>
   </body>

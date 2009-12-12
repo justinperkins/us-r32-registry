@@ -1,10 +1,9 @@
 <%# Copyright 2007-2008 Justin Perkins %>
 <%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
-
 <h2><%= @page_title %></h2>
 <% if @r32s && !@r32s.blank? -%>
   <% @r32s.each do |r32| -%>
-    <h3 class="blog_link"><%= link_to "#{r32_to_s r32}", :action => 'show', :id => r32.id %>
+    <h3 class="blog_link"><%= link_to "#{r32_to_s r32, :page_title => true}", :action => 'show', :id => r32.id %>
       <%= render :partial => 'post_stats', :locals => { :r32 => r32 } %>
     </h3>
   <% end -%>

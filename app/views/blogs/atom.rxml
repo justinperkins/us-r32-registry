@@ -40,7 +40,7 @@ xml.feed "version" => "0.3", "xml:lang"=>"en-US", "xmlns"=>"http://purl.org/atom
 
       xml.link "rel" => "alternate", "type" => "text/html", "href" => url_for( :controller => '/blogs', :action => 'show', :id => @r32, :only_path => false )
 
-      xml.content "<p>#{ h @r32.owner } has not logged any information about their #{ h r32_to_s( @r32, false ) }.</p>", "type"=>"text/html", "mode"=>"escaped"
+      xml.content "<p>#{ h @r32.owner } has not logged any information about their #{ h r32_to_s( @r32, :show_owner => false, :page_title => true ) }.</p>", "type"=>"text/html", "mode"=>"escaped"
     end
   end
 end

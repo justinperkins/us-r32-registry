@@ -104,9 +104,9 @@ class BlogsController < ApplicationController
 
     @atom_settings = {
       :url => url_for( :controller => '/blogs', :action => 'atom', :id => @r32.id ),
-      :title => "Atom feed for log of #{ r32_to_s @r32 }"
+      :title => "Atom feed for log of #{ r32_to_s @r32, :page_title => true }"
     }
-    @page_title = "Owner log of #{ r32_to_s @r32 }"
+    @page_title = "Owner log of #{ r32_to_s @r32, :page_title => true }"
   end
   
   def single
@@ -116,7 +116,7 @@ class BlogsController < ApplicationController
 
   def atom
     @r32 = R32.find params[:id]
-    @page_title = "Owner log of #{ r32_to_s @r32 }"
+    @page_title = "Owner log of #{ r32_to_s @r32, :page_title => true }"
     @entries = @r32.posts.find :all, :limit => 50, :order => 'updated_at DESC'
     render :layout => false
   end

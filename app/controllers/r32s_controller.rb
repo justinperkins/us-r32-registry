@@ -10,7 +10,7 @@ class R32sController < ApplicationController
   def index
     @page = safe_page( params[ :page ] )
     @active_chassis = safe_input( params[:chassis], %w{ mkiv mkv } )
-    @sort_by = safe_input( params[:sort_by], [ 'r32s.chassis', 'r32s.color', 'r32s.interior', 'r32s.edition_number', 'r32s.purchased_on', 'r32s.for_sale', 'r32s.preordered', 'users.first_name', 'users.city' ], 'r32s.created_at' )
+    @sort_by = safe_input( params[:sort_by], [ 'r32s.chassis', 'r32s.color', 'r32s.interior', 'r32s.edition_number', 'r32s.purchased_on', 'r32s.state', 'users.first_name', 'users.city' ], 'r32s.created_at' )
     @sort_direction = safe_input( params[:sort_direction], %w{ ASC DESC }, 'ASC' )
 
     @page_title = "All #{"#{correct_case @active_chassis.upcase} " if @active_chassis}R32s"
@@ -40,7 +40,7 @@ class R32sController < ApplicationController
   def only_canada
     @page_title = "All R32s in Canada"
     @page = safe_page( params[ :page ] )
-    @sort_by = safe_input( params[:sort_by], [ 'r32s.chassis', 'r32s.color', 'r32s.interior', 'r32s.edition_number', 'r32s.purchased_on', 'r32s.for_sale', 'r32s.preordered', 'users.first_name', 'users.city' ], 'r32s.created_at' )
+    @sort_by = safe_input( params[:sort_by], [ 'r32s.chassis', 'r32s.color', 'r32s.interior', 'r32s.edition_number', 'r32s.purchased_on', 'r32s.state', 'users.first_name', 'users.city' ], 'r32s.created_at' )
     @sort_direction = safe_input( params[:sort_direction], %w{ ASC DESC }, 'ASC' )
 
     @all_r32s = R32.find_all_candadians
@@ -53,14 +53,14 @@ class R32sController < ApplicationController
   def totaled
     @page_title = "Totaled R32s"
     @page = safe_page( params[ :page ] )
-    @sort_by = safe_input( params[:sort_by], [ 'r32s.chassis', 'r32s.color', 'r32s.interior', 'r32s.edition_number', 'r32s.purchased_on', 'r32s.for_sale', 'r32s.preordered', 'users.first_name', 'users.city' ], 'r32s.created_at' )
+    @sort_by = safe_input( params[:sort_by], [ 'r32s.chassis', 'r32s.color', 'r32s.interior', 'r32s.edition_number', 'r32s.purchased_on', 'r32s.state', 'users.first_name', 'users.city' ], 'r32s.created_at' )
     @sort_direction = safe_input( params[:sort_direction], %w{ ASC DESC }, 'ASC' )
 
-    @all_r32s = R32.find_all_by_totaled(true)
-    @most_recent_mkiv = R32.find :all, :include => 'user', :conditions => [ 'r32s.totaled = ? AND chassis = ?', true, 'mkiv' ], :limit => 1, :order => 'r32s.created_at DESC'
-    @most_recent_mkv = R32.find :all, :include => 'user', :conditions => [ 'r32s.totaled = ? AND chassis = ?', true, 'mkv' ], :limit => 1, :order => 'r32s.created_at DESC'
+    @all_r32s = R32.all_totaled
+    @most_recent_mkiv = R32.all_totaled(:include => 'user', :conditions => {:chassis => 'mkiv'}, :limit => 1, :order => 'r32s.created_at DESC')
+    @most_recent_mkv = R32.all_totaled(:include => 'user', :conditions => {:chassis => 'mkv'}, :limit => 1, :order => 'r32s.created_at DESC')
 
-    @r32s = R32.paginate(:all, :include => 'user', :conditions => ['r32s.totaled = ?', true], :order => " #{ @sort_by } #{ @sort_direction }", :page => @page )
+    @r32s = R32.paginate(:all, :include => 'user', :conditions => ['r32s.state = ?', 'totaled'], :order => " #{ @sort_by } #{ @sort_direction }", :page => @page )
   end
   
   def atom
@@ -69,7 +69,7 @@ class R32sController < ApplicationController
       @entries = R32.find :all, :limit => 100, :conditions => [ 'chassis = ?', @active_chassis ], :include => 'user', :order => 'r32s.created_at DESC'
       @page_title = "All registered US-spec #{ correct_case @active_chassis } R32s"
     elsif @active_chassis == 'for_sale'
-      @entries = R32.find :all, :limit => 100, :conditions => [ 'for_sale = ?', true ], :include => 'user', :order => 'r32s.created_at DESC'
+      @entries = R32.all_for_sale(:limit => 100, :include => 'user', :order => 'r32s.created_at DESC')
       @page_title = "All registered US-spec R32s that are currently for sale"
     else
       @entries = R32.find :all, :limit => 100, :include => 'user', :order => 'r32s.created_at DESC'
@@ -85,7 +85,7 @@ class R32sController < ApplicationController
   end
   
   def for_sale
-    @r32s = R32.find_all_by_for_sale true
+    @r32s = R32.all_for_sale
     @page_title = @r32s ? "#{@r32s ? @r32s.size : 0} #{@r32s && @r32s.size > 1 ? 'R32s' : 'R32'} For Sale" : 'R32s For Sale'
     @atom_settings = {
       :url => "http://feeds.feedburner.com/us_r32_registry_all_r32s_for_sale",
