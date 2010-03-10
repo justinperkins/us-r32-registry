@@ -3,6 +3,19 @@
 
 # Settings specified here will take precedence over those in config/environment.rb
 
+# our production env has a funny version of ruby and we're using a really old version of rails
+module ActionView
+  module Helpers
+    module TextHelper
+      def truncate(text, length = 30, truncate_string = "...")
+        if text.nil? then return end
+        l = length - truncate_string.chars.to_a.size
+        (text.chars.to_a.size > length ? text.chars.to_a[0...l].join + truncate_string : text).to_s
+      end
+    end
+  end
+end
+
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true

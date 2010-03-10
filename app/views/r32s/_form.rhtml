@@ -65,7 +65,7 @@
     <em class="highlight"><%= @r32.errors[:mileage] %></em>
   </p>
   <p><label for="r32_state">Vehicle State:</label>
-    <%= f.select 'state', R32.optional_states.insert(0, 'owned').collect { |s| [s.titleize, s]}, :selected => @r32.vehicle_state %>
+    <%= f.select 'state', R32.optional_states.clone.insert(0, 'owned').collect { |s| [s.titleize, s]}, :selected => @r32.vehicle_state %>
   </p>
   <p><label for="r32_notes">Notes:</label>
     <%= f.text_area "notes" %>
