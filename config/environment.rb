@@ -59,3 +59,18 @@ end
 HoptoadNotifier.configure do |config|
   config.api_key = '10a46a8b1fe413b85dd2a1c5b2d9401a'
 end
+
+if RAILS_ENV == 'production'
+  # our production env has a funny version of ruby and we're using a really old version of rails
+  module ActionView
+    module Helpers
+      module TextHelper
+        def truncate(text, length = 30, truncate_string = "...")
+          if text.nil? then return end
+          l = length - truncate_string.chars.to_a.size
+          (text.chars.to_a.size > length ? text.chars.to_a[0...l].join + truncate_string : text).to_s
+        end
+      end
+    end
+  end
+end
