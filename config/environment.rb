@@ -61,6 +61,17 @@ HoptoadNotifier.configure do |config|
 end
 
 if RAILS_ENV == 'production'
+  # hacks for our shitty production environment
+  unless '1.9'.respond_to?(:force_encoding)
+    String.class_eval do
+      begin
+        remove_method :chars
+      rescue NameError
+        # OK
+      end
+    end
+  end
+  
   # our production env has a funny version of ruby and we're using a really old version of rails
   module ActionView
     module Helpers
