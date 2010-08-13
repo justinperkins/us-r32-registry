@@ -20,6 +20,7 @@
     <em class="highlight"><%= @post.errors[:content] %></em>
     <em>You can use HTML, URLs will be automatically converted to links.</em>
   </p>
+  <p style="margin:0 0 0 13em;"><%= link_to 'Please considering donating a couple bucks to help run this website', {:controller => 'about', :action => 'donate'}, :target => '_blank' %></p>
   <p class="btn"><%= submit_tag 'Add Entry &#187;', :onclick => "$('indicator').show()" %>
     <%= image_tag 'indicator.gif', :id => 'indicator', :style => 'display:none' %></p>
 <% end -%>

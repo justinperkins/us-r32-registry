@@ -7,8 +7,12 @@ class AboutController < ApplicationController
     @page_title = "Let's Get Meta!"
   end
   
-  def adverts
+  def donate
     @page_title = "You've got to feed the monkey"
+  end
+  
+  def adverts
+    render :action => 'donate'
   end
   
   def feeds

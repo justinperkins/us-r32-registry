@@ -48,6 +48,7 @@
     <em class="highlight"><%= @r32.errors[:purchased_on] %></em>
     <em class="meta">Use format: mm/dd/yyyy</em>
   </p>
+  <p style="margin:0 0 0 13em;"><%= link_to 'Please considering donating a couple bucks to help run this website', {:controller => 'about', :action => 'donate'}, :target => '_blank' %></p>
 
   <p class="btn"><%= submit_tag "#{@controller.action_name == 'add' ? 'Add this R32 &#187;' : 'Save changes &#187;'}", :class => 'btn' %></p>
   <div class="clearfix-right"></div>
@@ -73,6 +74,7 @@
   <p><label for="r32_mods">Mods:</label>
     <%= f.text_area "mods" %>
     <em class="highlight"><%= @r32.errors[:mods] %></em></p>
+
   <p class="btn"><%= submit_tag "#{@controller.action_name == 'add' ? 'Add this R32 &#187;' : 'Save changes &#187;'}", :class => 'btn' %></p>
 </fieldset>
 <%= javascript_tag "r32.prepare(#{@controller.action_name == 'edit'});" %>
