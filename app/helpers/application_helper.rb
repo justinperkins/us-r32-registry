@@ -48,6 +48,14 @@ module ApplicationHelper
     end
   end
   
+  def r32_brief(r32)
+    str = []
+    str << abbreviated_color(r32.color)
+    str << correct_case(r32.chassis)
+    str << (r32.edition_number.blank? ? 'unknown edition number' : "##{r32.edition_number}") if r32.chassis == 'mkv'
+    str.join(' ')
+  end
+  
   def abbreviated_color(color)
     color.downcase == 'custom' ? 'Custom' : color.upcase
   end

@@ -133,31 +133,20 @@ body.member-contributor #sidebar{ display:none; }
 body.totaled #content{ background:#000 url(../images/skull_and_crossbones.jpg) no-repeat top right; }
 #navigation{
   list-style:none;
-  float:left;
-  margin:-10px 0 10px;
+  margin:0 0 20px;
+  padding:0;
 }
 #navigation li{
   display:inline;
+  padding:0 10px 0 0;
 }
 #navigation li a{
   text-decoration:none;
   color:#000;
-  display:block;
-  background:#ccc;
-  float:left;
-  padding:5px 5px 3px;
-  margin:0 10px 5px 0;
-}
-#navigation li a em{
-  color:red;
-  font-size:10px;
-  text-align:center;
-  font-style:normal;
 }
 #navigation li a:hover{
-  padding-top:10px;
-  margin-bottom:0;
   color:#396da9;
+  border-bottom:2px solid #506cb3;
 }
 #content h3.system_message{
   border:1px solid #fff;
@@ -384,6 +373,12 @@ body.member-contributor #map{ margin:0 auto; width:100%; }
   padding:0;
   line-height:1.3em;
 }
+
+/* searchin
+********************************************************************************************/
+.search-results h3{ }
+.search-results ul{ margin:5px 0 15px; }
+.search-results ul li{}
 
 /* extra tidbits
 ********************************************************************************************/

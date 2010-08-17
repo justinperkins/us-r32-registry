@@ -2,27 +2,8 @@
 <%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
 
 <% form_for :search do -%>
-  <p><label for="search_query">Search for:</label>
-    <%= text_field_tag 'q', @search[:value], :id => 'search_query' %></p>
-  <p class="multi"><strong>Chassis options:</strong>
-    <%= check_box_tag 'chassis_type[]', 'mkiv', @search[:mkiv], :id => 'chassis_type_mkiv' %>
-    <label for="chassis_type_mkiv">MkIV</label>
-    <%= check_box_tag 'chassis_type[]', 'mkv', @search[:mkv], :id => 'chassis_type_mkv' %>
-    <label for="chassis_type_mkv">MkV</label>
+  <p class="multi"><label for="search_query">Search by last 4 of VIN or edition number (MkV only):</label>
+    <%= text_field_tag 'q', params[:q], :id => 'search_query' %>
+    <%= submit_tag 'Lookup' %>
   </p>
-  <p class="multi"><strong>Color options:</strong>
-    <%= check_box_tag 'color[]', 'dbp', @search[:dbp], :id => 'color_options_dbp' %>
-    <label for="color_options_dbp">DBP</label>
-    <%= check_box_tag 'color[]', 'bmp', @search[:bmp], :id => 'color_options_bmp' %>
-    <label for="color_options_bmp">BMP (MkIV only)</label>
-    <%= check_box_tag 'color[]', 'rs', @search[:rs], :id => 'color_options_rs' %>
-    <label for="color_options_rs">RS (MkIV only)</label>
-    <%= check_box_tag 'color[]', 'tr', @search[:tr], :id => 'color_options_tr' %>
-    <label for="color_options_tr">TR</label>
-    <%= check_box_tag 'color[]', 'ug', @search[:ug], :id => 'color_options_ug' %>
-    <label for="color_options_ug">UG (MkV only)</label>
-    <%= check_box_tag 'color[]', 'cw', @search[:cw], :id => 'color_options_cw' %>
-    <label for="color_options_tr">CW (MkV only)</label>
-  </p>
-  <p class="btn"><%= submit_tag 'Search' %></p>
 <% end -%>

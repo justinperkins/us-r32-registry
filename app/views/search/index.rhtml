@@ -3,3 +3,26 @@
 
 <h2><%= @page_title %></h2>
 <%= render :partial => 'form' %>
+<% unless params[:q].blank? %>
+  <div class="search-results">
+    <% if @vin_matches.empty? %>
+      <h3>No R32 matches VIN number <em>XXXXXXXXXXXXX<%= h(params[:q]) %></em>:</h3>
+    <% else %>
+      <h3>R32s matching VIN number <em>XXXXXXXXXXXXX<%= h(params[:q]) %></em>:</h3>
+      <ul>
+        <% @vin_matches.each do |result| %>
+        <li><%= r32_brief(result) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% unless @edition_match %>
+      <h3>No R32 matches edition number <em><%= h(params[:q]) %></em>:</h3>
+    <% else %>
+      <h3>R32 matching edition number <em><%= h(params[:q]) %></em>:</h3>
+      <ul>
+        <li><%= r32_brief(@edition_match) %></li>
+      </ul>
+    <% end %>
+  </div>
+<% end %>

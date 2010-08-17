@@ -4,6 +4,9 @@
 class SearchController < ApplicationController
   def index
     @page_title = "Search For R32s"
-    @search = { :value => params[:q], :mkiv => true, :mkv => true, :dbp => true, :bmp => true, :rs => true, :tr => true, :ug => true, :cw => true }
+    unless params[:q].blank?
+      @edition_match = R32.find_by_chassis_and_edition_number('mkv', params[:q])
+      @vin_matches = R32.find(:all, :conditions => ['LOWER(vin) LIKE ?', "%#{ params[:q].downcase }"])
+    end
   end
 end
