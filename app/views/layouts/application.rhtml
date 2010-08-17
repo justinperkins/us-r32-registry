@@ -16,7 +16,7 @@
     <!--[if IE]><%= stylesheet_link_tag 'hacks.ie.css' %><![endif]-->
   	<%= auto_discovery_link_tag :atom, @atom_settings[ :url ], :title => @atom_settings[ :title ] if @atom_settings %>
   </head>
-  <body class="<%= 'blog' if blog_mode? %> <%= 'totaled' if @controller.action_name == 'totaled' %>">
+  <body class="<%= 'blog' if blog_mode? %> <%= 'totaled' if @controller.action_name == 'totaled' %> <%= css_class_for_user(current_user) %>">
     <%= render :partial => 'shared/header' %>
     <div id="content">
       <%= render :partial => 'shared/navigation' %>

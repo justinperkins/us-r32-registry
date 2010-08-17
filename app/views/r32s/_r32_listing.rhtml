@@ -10,7 +10,10 @@
   <% end -%>
   <td><%= r32_listing.preordered? ? 'n/a' : format_date(r32_listing.purchased_on) %></td>
   <td><%= r32_listing.vehicle_state.titleize %></td>
-  <td><%= link_to h("#{r32_listing.owner}"), :controller => 'account', :action => 'show', :id => r32_listing.user.id %></td>
+  <td>
+    <%= link_to h("#{r32_listing.owner}"), :controller => 'account', :action => 'show', :id => r32_listing.user.id %>
+    <%= donate_link_for_contributor(r32_listing.user) %>
+  </td>
   <td><%= "#{ truncate( r32_listing.user.city, 30 ) }, #{ truncate( r32_listing.user.state, 2 ) }" %></td>
   <td><%= link_to 'View', :controller => 'blogs', :action => 'show', :id => r32_listing.id %></td>
   <td><%= link_to 'View', :controller => 'r32s', :action => 'show', :id => r32_listing.id %></td>

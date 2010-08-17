@@ -37,7 +37,10 @@
       <%= r32.mods ? format_text(r32.mods) : 'none' %></p>
   <% end -%>
   <% if blog_mode? || !viewing_user_profile? -%>
-    <p><strong>Owned by:</strong> <%= link_to "#{r32.owner}", :controller => 'account', :action => 'show', :id => r32.user.id %></p>
+    <p>
+      <strong>Owned by:</strong> <%= link_to "#{r32.owner}", :controller => 'account', :action => 'show', :id => r32.user.id %>
+      <%= donate_link_for_contributor(r32.user) %>
+    </p>
     <p><strong>Location:</strong> <%= "#{r32.user.city}, #{r32.user.state}" %></p>
   <% end -%>
   <% unless blog_mode? -%>

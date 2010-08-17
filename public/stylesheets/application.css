@@ -126,7 +126,8 @@ body.blog #header img{
   width:270px;
   margin:0;
 }
-#adverts iframe{ margin:0 10px 10px 0; }
+body.member-contributor #main{ max-width:999999px; }
+body.member-contributor #sidebar{ display:none; }
 #adverts p{ text-align:center; margin:0; padding:0; }
 
 body.totaled #content{ background:#000 url(../images/skull_and_crossbones.jpg) no-repeat top right; }
@@ -177,6 +178,9 @@ body.totaled #content{ background:#000 url(../images/skull_and_crossbones.jpg) n
 }
 #content fieldset legend{
   font-size:1.3em;
+}
+fieldset.member-contributor{
+  background:transparent url(/images/r32-contributor.png) no-repeat 105% -50px;
 }
 #content form p{
   clear:left;
@@ -245,8 +249,8 @@ body.blog #content div.r32{
   width:300px;
   margin:0 0 0 20px;
 }
-#content table.r32s{
-}
+#content table.r32s{}
+body.member-contributor #content table.r32s{ width:100%; }
 #content table.r32s thead{
   background:#fff;
 }
@@ -282,6 +286,15 @@ body.blog #content div.r32{
 #content h3.blog_link{
   margin:5px 0;
 }
+a.contributor{
+  background:transparent url(/images/r32-contributor-pill.png) no-repeat center right;
+  display:inline-block;
+  width:110px;
+  text-indent:-9999px;
+  outline:none;
+}
+table.r32s tr td a.contributor{ width:15px; height:12px; background-position:-40px 50%; display:block; float:right; overflow:hidden; margin:0 0 0 3px; }
+table.r32s tr td a.contributor span{ display:none; }
 #content div.entry{
   padding:0 0 10px;
   margin:0 0 10px;
@@ -365,6 +378,7 @@ div.pagination a:hover{
   padding:3px;
   border:1px solid #000;
 }
+body.member-contributor #map{ margin:0 auto; width:100%; }
 #map p.overlay{
   margin:0;
   padding:0;

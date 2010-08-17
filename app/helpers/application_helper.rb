@@ -76,4 +76,15 @@ module ApplicationHelper
     @controller.controller_name != 'blogs' &&
     (@controller.controller_name == 'r32s' && !%w{ add edit show }.include?(@controller.action_name))
   end
+  
+  def css_class_for_user(user)
+    classes = []
+    classes << 'member-contributor' if user && user.has_contributed?
+    classes.join(' ')
+  end
+  
+  def donate_link_for_contributor(user)
+    return unless user.has_contributed?
+    link_to('<span>contributor</span>', {:controller => 'about', :action => 'donate'}, :class => 'contributor', :title => "#{ h(user.display_name) } is a site contributor")
+  end
 end

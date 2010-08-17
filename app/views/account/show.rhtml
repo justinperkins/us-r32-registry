@@ -2,7 +2,7 @@
 <%# The R32 registry is distributed under the GNU General Public Licens. See license.txt or http://www.gnu.org/ %>
 
 <h2>The Profile of <%= h @showing_user.display_name %></h2>
-<fieldset>
+<fieldset class="<%= css_class_for_user(@showing_user) %>">
   <legend>Personal Information</legend>
   <p><strong>Name:</strong>
     <%= h @showing_user.display_name %></p>
@@ -23,6 +23,13 @@
   <% if @showing_user.user_can_alter_this( @user ) -%>
     <p><em><%= link_to 'Edit profile', :action => 'edit', :id => @showing_user %></em></p>
   <% end -%>
+  <% if @showing_user.has_contributed? %>
+    <% if current_user && current_user == @showing_user %>
+      <p><strong>Thank you for being an awesome site contributor</strong></p>
+    <% else %>
+      <p><strong>This person is an awesome <%= link_to('site contributor', :controller => 'about', :action => 'donate') %></strong></p>
+    <% end %>
+  <% end %>
 </fieldset>
 <fieldset>
   <legend>R32 Information</legend>

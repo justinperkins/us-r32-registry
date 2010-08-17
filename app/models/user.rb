@@ -89,6 +89,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_contributed?
+    !self.contributor_level.blank?
+  end
+  
   protected
 
   def self.sha1(pass)

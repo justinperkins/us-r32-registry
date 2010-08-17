@@ -68,4 +68,11 @@ class ApplicationController < ActionController::Base
   end
 
   alias owner_is_viewing? author_is_viewing?
+  
+  helper_method :current_user
+  def current_user
+    return unless session[:user_id]
+    @current_user ||= User.find(session[:user_id])
+    @current_user
+  end
 end

@@ -4,3 +4,5 @@
 <% posts = r32.posts.sort_by { |p| p.created_at } -%>
 (Posts: <%= posts.size %>,
 Last entry: <%= posts.size > 0 ? "#{ time_ago_in_words(posts.last.created_at) } ago" : 'Never written' %>)
+
+<%= donate_link_for_contributor(r32.user) %>

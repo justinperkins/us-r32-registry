@@ -28,7 +28,9 @@
       <em class="highlight"><%= form.errors[:password_confirmation] %></em></p>
   <% end -%>
 
-  <p style="margin:0 0 0 13em;"><%= link_to 'Please considering donating a couple bucks to help run this website', {:controller => 'about', :action => 'donate'}, :target => '_blank' %></p>
+  <% if current_user && !current_user.has_contributed? %>
+    <p style="margin:0 0 0 13em;"><%= link_to 'Please considering donating a couple bucks to help run this website', {:controller => 'about', :action => 'donate'}, :target => '_blank' %></p>
+  <% end %>
 
   <p class="btn"><%= submit_tag "#{@controller.action_name == 'create' ? 'Create your account &#187;' : 'Save changes &#187;'}", :class => 'btn' %>
     <%= link_to 'cancel edit', :action => 'show', :id => form.id if @controller.action_name == 'edit' %>
