@@ -56,10 +56,6 @@ if RAILS_ENV != "production"
   load(railsrc) if File.exist?(railsrc)
 end
 
-HoptoadNotifier.configure do |config|
-  config.api_key = '10a46a8b1fe413b85dd2a1c5b2d9401a'
-end
-
 if RAILS_ENV == 'production'
   # hacks for our shitty production environment
   unless '1.9'.respond_to?(:force_encoding)
