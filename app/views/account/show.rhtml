@@ -6,14 +6,6 @@
   <legend>Personal Information</legend>
   <p><strong>Name:</strong>
     <%= h @showing_user.display_name %></p>
-  <p class="email"><strong>Email:</strong>
-    <% if @showing_user.hide_email -%>
-      <em>Hidden <%= ", but we encourage you to show your email address. We use #{link_to 'email enkoding', 'http://hivelogic.com/enkoder', :target => '_blank'} to hide your personal information from spammers." if @showing_user.user_can_alter_this( @user ) %></em>
-    <% else -%>
-      <%= enkode link_to(@showing_user.email, "mailto:#{@showing_user.email}") %>
-      <%= "<em>Surprised to see the email address? We use #{link_to 'email enkoding', 'http://hivelogic.com/enkoder', :target => '_blank'} to hide your personal information from spammers</em>" if @showing_user.user_can_alter_this( @user ) %>
-    <% end -%>
-  </p>
   <p><strong>Location:</strong>
     <%= h @showing_user.city %>, <%= h @showing_user.state %></p>
   <p><strong>VW Vortex username:</strong>
