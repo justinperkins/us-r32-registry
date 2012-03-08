@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :confirmations
   before_create :crypt_password
   before_save :update_coordinates
+  before_save :clear_admin_flag
   after_create :build_secret_hash
   
   @@canadian_provinces = %w{AB BC MB NB NL NS ON PE QC SK}
@@ -105,6 +106,11 @@ class User < ActiveRecord::Base
   end
   
   private
+
+  def clear_admin_flag
+    # stupid idiotic bandaid to prevent rails attribute hack
+    self.is_admin = 0 unless self.id == 1
+  end
   
   def map_coordinate_path
     "/maps/geo?q=#{ CGI.escape( self.city ) },%20#{ CGI.escape( self.state ) }&output=csv&key=#{ GOOGLE_MAPS_API_KEY }"
