@@ -149,10 +149,12 @@ body.totaled #content{ background:#000 url(../images/skull_and_crossbones.jpg) n
   border-bottom:2px solid #506cb3;
 }
 #content h3.system_message{
-  border:1px solid #fff;
-  background:#ddd;
+  border:1px solid #000;
+  background:#0c0;
   padding:5px;
   margin:0 0 10px;
+  font-size:18px;
+  color:#fff;
 }
 #content h3.notice{
   font-size:1.8em;
