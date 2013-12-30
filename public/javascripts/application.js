@@ -6,6 +6,7 @@ var Account = {
     this.checked = false;
   },
   checkLocation: function(formControl){
+    return true; // forget this. google maps api is gone.
     if (this.checked) return true; // we already checked this city/state, just let the form go
     this.formControl = $(formControl);
     this.formControl.down('p.btn em').update('Checking city/state so it will show up on the R32 map, please wait ...');
