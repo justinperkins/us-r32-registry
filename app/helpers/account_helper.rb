@@ -66,6 +66,7 @@ module AccountHelper
       %w{Oklahoma OK },
       %w{Oregon OR },
       %w{Pennsylvania PA },
+      ['Puerto Rico', 'PR'],
       ['Rhode Island', "RI" ],
       ['South Carolina', "SC" ],
       ['South Dakota', "SD" ],
@@ -77,7 +78,7 @@ module AccountHelper
       %w{Washington WA },
       ['West Virginia',	"WV" ],
       %w{Wisconsin	WI },
-      %w{Wyoming	WY },
+      %w{Wyoming	WY }
     ]
   end
 end
